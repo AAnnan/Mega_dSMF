@@ -13,11 +13,11 @@ else
 fi
 
 ##Create software directory
-SOFTWARE_DIR=${HOME}/software_MethylBC
+SOFTWARE_DIR=${HOME}/Mega_dSMF/software_MethylBC
 mkdir -p ${SOFTWARE_DIR}
 cd $SOFTWARE_DIR
 echo "Installing software from Methylation_Calling in " ${SOFTWARE_DIR}
-echo "export SOFTWARE_DIR=${HOME}/software_MethylBC" >> ~/.bashrc
+echo "export SOFTWARE_DIR=${HOME}/Mega_dSMF/software_MethylBC" >> ~/.bashrc
 
 #Install conda (or not if already installed)
 #Dealing with miniconda vs anaconda installations
