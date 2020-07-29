@@ -1,0 +1,72 @@
+Megalodon Modified Basecalling Output Notes:
+
+made from:
+https://nanoporetech.github.io/megalodon/file_formats.html
+https://nanoporetech.github.io/megalodon/common_arguments.html
+https://nanoporetech.github.io/megalodon/advanced_arguments.html
+For BedMethyl: https://www.encodeproject.org/data-standards/wgbs/
+Looking at actual output
+
+Output options passed to Megalodon:
+basecalls mod_basecalls mappings mod_mappings per_read_mods mods
+
+--
+basecalls: Canonical, produces FASTQ with first line ONLY containing the read_id (no runid, sampled, read, ch or start_time).
+
+Files: basecalls.fastq 
+--
+
+--
+mod_basecalls: produces HDF5 file with a data set corresponding to each read (accessed via the read_id)
+
+Files: basecalls.modified_base_scores.hdf5
+--
+
+--
+mappings: Mapped reads will be output into a SAM, BAM (default) or CRAM file. A mapping summary (mappings.summary.txt) will also be produced, containing the following fields read_id pct_identity num_align       num_match num_del num_ins read_pct_coverage chrom strand  start end.
+
+Files:mappings.bam, mappings.summary.txt
+--
+
+--
+mod_mappings: provide reference-anchored per-read modified base calls.
+These mappings contain the mapped reference sequence annotated with modified base calls. Useful for visualizing per-read modified base calls (e.g. IGV bisulfite mode for CpG calls)
+
+Files: mod_mappings.5mC.bam, mod_mappings.6mA.bam (both are produced even if a specific motif is requested)
+--
+
+--
+per_read_mods (Per-read Modified Bases): 
+Tab-delimited (instead of SQLite output, with flag --write-mods-text)
+Contains the following fields: read_id, chrm, strand, pos, mod_log_prob, can_log_prob, mod_base, motif
+
+Files: per_read_modified_base_calls.db, per_read_modified_base_calls.txt
+--
+
+--
+mods:
+Aggregated Modified Bases: bedmethyl format with one file per modification type. Produced at the end of the run, I/O intensive.
+
+Each column represents the following:
+
+    Reference chromosome or scaffold
+    Start position in chromosome
+    End position in chromosome
+    Name of item
+    Score from 0-1000. Capped number of reads
+    Strandedness, plus (+), minus (-), or unknown (.)
+    Start of where display should be thick (start codon)
+    End of where display should be thick (stop codon)
+    Color value (RGB)
+    Coverage, or number of reads
+    Percentage of reads that show methylation at this position in the genome
+
+Files: modified_bases.5mC.bed, modified_bases.6mA.bed (both are produced even if a specific motif is requested)
+
+--
+
+
+
+
+
+
