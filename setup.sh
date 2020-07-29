@@ -41,11 +41,14 @@ source ${CONDA_ACTIVATE} MethylBC
 #Install Samtools
 conda install -c bioconda samtools
 
-#Install tensorflow
+#Install tensorflow-gpu 1.14
 conda install tensorflow-gpu==1.14
 
 #Install Deepbinner 
 pip3 install git+https://github.com/rrwick/Deepbinner.git
+
+#Install Keras 2.3.1
+pip3 install Keras==2.3.1
 
 #Install ont fast5 api
 pip3 install ont-fast5-api
