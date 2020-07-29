@@ -26,6 +26,7 @@ for barcode in ${barcodesOfInterest[@]} ; do
 	rm methyl_plot.py
 done
 
+cd /scratch/TMP_Megalodon_${expName}
 cp *.pdf ${work_DIR}
 
 conda deactivate
