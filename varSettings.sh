@@ -1,7 +1,7 @@
 #! /bin/bash
 
-# Get Working Directory (1 above current)
-work_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && cd ../ && pwd )"
+# Get current Directory 
+work_DIR=$(pwd)
 
 # name of your conda environment
 condaEnv=MethylBC
