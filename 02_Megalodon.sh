@@ -36,7 +36,7 @@ fi
 # Other useful options : --num-reads 50000 \ --mod-motif Z GC 1 \
 
 for barcode in ${barcodesOfInterest[@]} ; do
-        megalodon ./demultiplexed_fast5s/${barcode}/ --guppy-server-path ${GUPPY_DIR}/guppy_basecall_server \
+        megalodon ./demultiplexed_fast5s_${expName}/${barcode}/ --guppy-server-path ${GUPPY_DIR}/guppy_basecall_server \
                 --guppy-params "-d ./rerio/basecall_models/" \
                 --guppy-config res_dna_r941_min_modbases-all-context_v001.cfg \
                 --outputs basecalls mod_basecalls mappings mods per_read_mods mod_mappings \
