@@ -35,7 +35,8 @@ echo "export CONDA_ACTIVATE=${CONDA_PACKAGE%conda}activate" >> ~/.bashrc
 conda create --name MethylBC
 
 #Activate conda env
-conda activate MethylBC
+source ~/.bashrc
+source ${CONDA_ACTIVATE} MethylBC
 
 #Install pip within your conda env
 conda install pip
