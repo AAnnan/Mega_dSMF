@@ -38,9 +38,6 @@ conda create --name MethylBC python=3.7
 source ~/.bashrc
 source ${CONDA_ACTIVATE} MethylBC
 
-#Install pip within your conda env
-conda install pip
-
 #Install Samtools
 conda install -c bioconda samtools
 
