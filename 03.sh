@@ -21,8 +21,11 @@ for barcode in ${barcodesOfInterest[@]} ; do
 	cp ${work_DIR}/methyl_plot.py .
 
 	python methyl_plot.py ${barcode}
+	mv *.pdf ../
 
 	rm methyl_plot.py
 done
+
+cp *.pdf ${work_DIR}
 
 conda deactivate
