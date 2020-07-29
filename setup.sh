@@ -16,7 +16,7 @@ fi
 SOFTWARE_DIR=${HOME}/Mega_dSMF/software_MethylBC
 mkdir -p ${SOFTWARE_DIR}
 cd $SOFTWARE_DIR
-echo "Installing software from Methylation_Calling in " ${SOFTWARE_DIR}
+echo "Installing software in " ${SOFTWARE_DIR}
 echo "export SOFTWARE_DIR=${HOME}/Mega_dSMF/software_MethylBC" >> ~/.bashrc
 
 #Install conda (or not if already installed)
