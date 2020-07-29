@@ -10,3 +10,11 @@ Analysing nanopore sequencing of dSMF data with Megalodon
 - To demultiplex your raw reads with 01_Demultiplex.sh, you have to have used one of these sequencing/barcoding kit: EXP-NBD103, EXP-NBD104 or very similar.
 
 - 3 motifs (GCG, HCG, GCH) will be explored for 5mC (H is any base except G). Refer to varSettings.sh if you wish to modify this.
+
+## Output
+
+Running all 3 scripts (in order) will output:
+
+1) Demultiplexed raw multiFast5
+2) All outputs listed in `Megalodon_Output_Notes.txt`
+3) PDFs showing Barplots of the proportion of methylated motif sites within a barcode
