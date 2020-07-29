@@ -32,7 +32,7 @@ fi
 echo "export CONDA_ACTIVATE=${CONDA_PACKAGE%conda}activate" >> ~/.bashrc
 
 #Create Conda env
-conda create --name MethylBC
+conda create --name MethylBC python=3.7
 
 #Activate conda env
 source ~/.bashrc
@@ -45,7 +45,7 @@ conda install pip
 conda install -c bioconda samtools
 
 #Install tensorflow
-pip3 install tensorflow-gpu==1.15 
+conda install tensorflow-gpu==1.14
 
 #Install Deepbinner 
 pip3 install git+https://github.com/rrwick/Deepbinner.git
