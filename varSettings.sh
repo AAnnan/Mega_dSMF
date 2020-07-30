@@ -18,6 +18,15 @@ rawFast5_DIR=/home/aannan/myimaging/20190830-dsmf-trainData/fast5Files
 # location of genome file for alignment
 genomeFile=/mnt/imaging.data/pmeister/ce11/genome.fa
 
+###############
+## MEGALODON ##
+###############
+
+# Outputs chosen (Space separated)
+# Possible output: basecalls mod_basecalls mappings mods per_read_mods mod_mappings
+# Refer to Megalodon_Output_Notes.txt if you're unsure
+# Default: mods per_read_mods mod_mappings
+outputs=(mods per_read_mods mod_mappings)
 
 #### Modifications you're looking for #####
 # Default is 3 motifs:  --mod-motif Z GCG 1 --mod-motif Z HCG 1 --mod-motif Z GCH 1
