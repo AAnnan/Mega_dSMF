@@ -7,6 +7,7 @@ Analysing nanopore sequencing of dSMF data with Megalodon
 3) launch setup.sh, you will be asked to input Guppy's latest version. You can check it here: https://community.nanoporetech.com/downloads/guppy/release_notes
 
 ## Usage
+Review carefully varSettings.sh and update variables according to your data.
 Run the scripts on the cluster in numerical order. Outputs will be in the same folder, Mega_dSMF.
 
 ## Output
