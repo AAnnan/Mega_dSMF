@@ -13,11 +13,11 @@ else
 fi
 
 ##Create software directory
-SOFTWARE_DIR=${HOME}/Mega_dSMF/software_MethylBC
+SOFTWARE_DIR=${HOME}/Mega_dSMF/software_Mega_dSMF
 mkdir -p ${SOFTWARE_DIR}
 cd $SOFTWARE_DIR
 echo "Installing software in " ${SOFTWARE_DIR}
-echo "export SOFTWARE_DIR=${HOME}/Mega_dSMF/software_MethylBC" >> ~/.bashrc
+echo "export SOFTWARE_DIR=${HOME}/Mega_dSMF/software_Mega_dSMF" >> ~/.bashrc
 
 #Install conda (or not if already installed)
 #Dealing with miniconda vs anaconda installations
@@ -32,11 +32,11 @@ fi
 echo "export CONDA_ACTIVATE=${CONDA_PACKAGE%conda}activate" >> ~/.bashrc
 
 #Create Conda env
-conda create --name MethylBC python=3.7 --yes
+conda create --name Mega_dSMF python=3.7 --yes
 
 #Activate conda env
 source ~/.bashrc
-source ${CONDA_ACTIVATE} MethylBC
+source ${CONDA_ACTIVATE} Mega_dSMF
 
 #Install Samtools
 conda install -c bioconda samtools --yes
