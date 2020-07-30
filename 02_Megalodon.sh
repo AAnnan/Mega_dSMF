@@ -1,11 +1,12 @@
 #! /bin/bash
 
 ## Allocate resources
-#SBATCH --time=8-00:00:00
+#SBATCH --time=10-00:00:00
 #SBATCH --partition=gpu
-#SBATCH --gres=gpu:1
-#SBATCH --mem=256G
-#SBATCH –-cpus-per-task=48
+#SBATCH --gres=gpu:2
+#SBATCH --mem=400G
+#SBATCH –-cpus-per-task=24
+#SBATCH --mem-per-cpu=20G
 
 ## job metadata
 #SBATCH --job-name="Megalodon"
@@ -32,7 +33,7 @@ then
 fi
 
 # Command to output: basecalls mod_basecalls mappings mods per_read_mods mod_mappings
-# Compute settings: GPU device 0 and 48 CPU cores
+# Compute settings: GPU device 0 and 1 and 24 CPU cores
 # Other useful options : --num-reads 50000 \ --mod-motif Z GC 1 \
 
 for barcode in ${barcodesOfInterest[@]} ; do
@@ -46,7 +47,7 @@ for barcode in ${barcodesOfInterest[@]} ; do
                 --write-mods-text \
                 --mod-output-formats bedmethyl wiggle \
                 --mod-map-base-conv C T --mod-map-base-conv Z C \
-                --devices 0 --processes 48
+                --devices 0 1 --processes 24
 done
 
 # Copy Megalodon's results to the work dir
