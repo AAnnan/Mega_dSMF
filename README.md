@@ -8,7 +8,10 @@ Analysing nanopore sequencing of dSMF data with Megalodon
 
 ## Usage
 Review carefully varSettings.sh and update variables according to your data.
-Run the scripts on the cluster in numerical order. Outputs will be in the same folder, Mega_dSMF.
+
+Run the scripts on the cluster in numerical order. 
+
+Outputs will be in the same folder, Mega_dSMF.
 
 ## Output
 Running all 3 scripts (in order) will output:
