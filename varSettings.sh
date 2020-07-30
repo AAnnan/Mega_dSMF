@@ -4,7 +4,7 @@
 work_DIR=$(pwd)
 
 # name of your conda environment
-condaEnv=MethylBC
+condaEnv=Mega_dSMF
 
 # name of experiment
 expName="20190830_dsmf"  
