@@ -37,7 +37,7 @@ for barcode in ${barcodesOfInterest[@]} ; do
                 -s ./demultiplexed_multifast5s_${expName}/${barcode}/ \
                 --threads 32 \
                 --filename_base ${expName}_${barcode} \
-                --batch_size 30000 
+                --batch_size 20000 
 done
 
 # Copy the demultiplexed fast5s to the work dir
