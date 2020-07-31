@@ -9,6 +9,7 @@ Shows the proportion of methylated motif sites within a barcode
 
 import sys
 import csv
+import numpy as np
 from collections import Counter
 import matplotlib.pyplot as plt
 
