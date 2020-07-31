@@ -12,29 +12,25 @@ import csv
 from collections import Counter
 import matplotlib.pyplot as plt
 
+###Open txt output from Megalodon: per_read_modified_base_calls
 exp = sys.argv[1]
 
-###Open txt output from Megalodon: per_read_modified_base_calls
-with open('per_read_modified_base_calls.txt') as csvfile: 
-	calls = csv.reader(csvfile, delimiter='\t')
+for file in sys.argv[1:]:
+	calls = np.genfromtxt('per_read_modified_base_calls.txt', delimiter='\t',skip_header=1,).astype(np.float32)
+	mod = calls[:,4]
+	can = calls[:,5]
+	
+	meth_scores = mod-can
 
-	#jump header
-	next(calls, None)
+	####Count occurences of all obtained scores
+	agg_scores = Counter(meth_scores)
 
-	#Store log mod_log_prob/can_log_prob columns into a list
-	meth_scores = [float(row[4])-float(row[5]) for row in calls]
-
-####Count occurences of all obtained scores
-agg_scores = Counter(meth_scores)
-
-###BarPlot scores on Y and number of sites having obtained that score on X
-plt.bar(agg_scores.keys(), agg_scores.values(), align='center', width=0.05)
-plt.xlim([min(meth_scores), max(meth_scores)])
-#plt.ylim(0, 10000)
-plt.axvline(x=0.85, color='r', linestyle='--',label='Megalodon threshold')
-plt.legend(loc='upper right',fontsize='small')
-plt.xlabel('log(probability of modified base/probability of canonical base)')
-plt.ylabel(f'Motif Site Count')
-plt.title(exp)
-plt.savefig(f'{exp}_methyl_plot.pdf')
-#plt.show()
+	###BarPlot scores on Y and number of sites having obtained that score on X
+	plt.bar(agg_scores.keys(), agg_scores.values(), align='center', width=0.05)
+	plt.xlim([min(meth_scores), max(meth_scores)])
+	plt.axvline(x=0.85, color='r', linestyle='--',label='Threshold=0.85')
+	plt.legend(loc='upper right',fontsize='small')
+	plt.xlabel('log(probability of modified base/probability of canonical base)')
+	plt.ylabel(f'GCG HCG GCH Count')
+	plt.title(file.strip('.txt'))
+	plt.savefig(file.strip('.txt')+'_methyl_plot.pdf')
