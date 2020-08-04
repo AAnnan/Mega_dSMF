@@ -11,13 +11,13 @@ Before launching the first script, review carefully `varSettings.sh` and update 
 
 Run the scripts on the cluster with `sbatch` in numerical order. 
 
+## Output
 Outputs will be in the same folder as the scripts: Mega_dSMF.
 
-## Output
 Running all 3 scripts (in order) will output:
 
 1) Finely demultiplexed, basecalled, multifast5s. 
-2) All outputs listed in `Megalodon_Output_Notes.txt` and chosen in `varSettings.sh`
+2) All outputs listed in `Megalodon_Output_Notes.txt` and selected in `varSettings.sh`
 3) PDFs showing barplots of the proportion of methylated motif sites within a barcode.
 
 ## Remarks
