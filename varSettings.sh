@@ -10,10 +10,10 @@ condaEnv=Mega_dSMF
 expName="20190830_dsmf"  
 
 # barcodes used (Space separated)
-barcodesOfInterest=(barcode01 barcode02 barcode03 barcode04)
+barcodesOfInterest=(barcode01 barcode04)
 
 # Absolute path of dir containing the raw fast5 from sequencing
-rawFast5_DIR=/home/aannan/myimaging/20190830-dsmf-trainData/fast5Files
+rawFast5_DIR=/home/aannan/rawF5
 
 # location of genome file for alignment
 genomeFile=/mnt/imaging.data/pmeister/ce11/genome.fa
@@ -27,7 +27,7 @@ genomeFile=/mnt/imaging.data/pmeister/ce11/genome.fa
 # Refer to Megalodon_Output_Notes.txt if you're unsure
 outputs=(basecalls mod_basecalls mappings mods per_read_mods mod_mappings)
 
-#### Modifications you're looking for #####
+#### Modifications you're looking for (--mod-motif)#####
 # Default is 3 motifs:  --mod-motif Z GCG 1 --mod-motif Z HCG 1 --mod-motif Z GCH 1
 
 # Motifs can't be overlapping
