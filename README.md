@@ -7,21 +7,21 @@ Analysing nanopore sequencing of dSMF data with Megalodon
 3) launch setup.sh, you will be asked to input Guppy's latest version. You can check it here: https://community.nanoporetech.com/downloads/guppy/release_notes
 
 ## Usage
-Review carefully varSettings.sh and update variables according to your data.
+Before launching the first script, review carefully `varSettings.sh` and update the variables according to your data. You also have to change the array number in the SLURM resource allocation part of scripts `01b_Demux_Guppy_Refine.sh` and `02_Megalodon.sh`. Specifically set #SBATCH --array to "0-(number of barcodes-1)".
 
-Run the scripts on the cluster in numerical order. 
+Run the scripts on the cluster with `sbatch` in numerical order. 
 
-Outputs will be in the same folder, Mega_dSMF.
+Outputs will be in the same folder as the scripts: Mega_dSMF.
 
 ## Output
 Running all 3 scripts (in order) will output:
 
-1) Demultiplexed, raw, multifast5s. 
-2) All outputs listed in `Megalodon_Output_Notes.txt`
+1) Finely demultiplexed, basecalled, multifast5s. 
+2) All outputs listed in `Megalodon_Output_Notes.txt` and chosen in `varSettings.sh`
 3) PDFs showing barplots of the proportion of methylated motif sites within a barcode.
 
 ## Remarks
-- To demultiplex your raw reads with 01_Demultiplex.sh, you have to have used one of these sequencing/barcoding kit: EXP-NBD103, EXP-NBD104 or very similar.
+- To demultiplex your raw reads with `01a_Demux_DeepBinner.sh`, you have to have used one of these sequencing/barcoding kit: EXP-NBD103, EXP-NBD104 or very similar.
 
-- 3 motifs (GCG, HCG, GCH) will be explored for 5mC (H is any base except G). Refer to varSettings.sh if you wish to modify this.
+- 3 motifs (GCG, HCG, GCH) will be explored for 5mC (H is any base except G). Refer to `varSettings.sh` if you wish to modify this.
 
