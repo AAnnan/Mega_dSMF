@@ -7,7 +7,7 @@ Analysing nanopore sequencing of dSMF data with Megalodon
 3) launch setup.sh, you will be asked to input Guppy's latest version. You can check it here: https://community.nanoporetech.com/downloads/guppy/release_notes
 
 ## Usage
-Before launching the first script, review carefully `varSettings.sh` and update the variables according to your data. You also have to change the array number in the SLURM resource allocation part of scripts `01b_Demux_Guppy_Refine.sh` and `02_Megalodon.sh`. Specifically, set #SBATCH --array to "0-(number of barcodes-1)".
+Before launching the first script, review carefully `varSettings.sh` and update the variables according to your data. You also have to set #SBATCH --array to "0-(number of barcodes-1)" in the SLURM resource allocation part of the following scripts: `01b_Demux_Guppy_Refine.sh` and `02_Megalodon.sh`.
 
 Run the scripts on the cluster with `sbatch` in numerical order. 
 
