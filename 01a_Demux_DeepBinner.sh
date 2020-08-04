@@ -30,7 +30,4 @@ cp -r ${rawFast5_DIR} ./rawFast5
 ### Run DeepBinner
 deepbinner realtime --stop --native --in_dir ./rawFast5 --out_dir ./demultiplexed_fast5s_${expName}
 
-# Remove raws
-rm -rf ./rawFast5
-
 conda deactivate
