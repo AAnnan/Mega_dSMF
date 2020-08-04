@@ -63,3 +63,4 @@ echo "export GUPPY_DIR=${SOFTWARE_DIR}/ont-guppy/bin" >> ~/.bashrc
 pip3 install Megalodon
 pip3 install git+https://github.com/nanoporetech/megalodon@guppy_client
 
+echo "Everything looks ready for your Megalodon run"
