@@ -30,7 +30,7 @@ source ${CONDA_ACTIVATE} ${condaEnv}
 cd /scratch/TMP_Megalodon_${expName}
 
 # Remove previously created intermediate folders and files
-rm -rf ./rawFast5 ./guppyBC ./demultiplexed_fast5s list_ids_*
+rm -rf ./rawFast5 ./guppyBC ./demultiplexed_fast5s list_ids_*.txt rawFast5s*.txt
 
 # Compute settings: 1 GPU and 30 CPU cores
 # Other useful options : --num-reads 50000 \ --mod-motif Z GC 1 \

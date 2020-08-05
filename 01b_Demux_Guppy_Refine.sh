@@ -50,7 +50,7 @@ ${GUPPY_DIR}/guppy_basecaller --input_path ./demultiplexed_fast5s_${expName}/${b
 	--device auto
 
 #Move fast5s from children folders to the parent
-find ./guppyBC/${barcode[i]}/workspace/ -type f | xargs mv -t ./guppyBC/${barcode[i]}/workspace/
+find ./guppyBC/${barcode[i]}/workspace/ -type f -name "*.fast5" | xargs mv -t ./guppyBC/${barcode[i]}/workspace/
 #Create a txt file containing the absolute filename of all barcoded fast5s
 awk -v barcode="${barcode[i]}" '$21==barcode {print "./guppyBC/"barcode"/workspace/"$2".fast5"}' ./guppyBC/${barcode[i]}/sequencing_summary.txt > list_ids_${barcode[i]}.txt
 #Move the fast5s contained in the list to their final directory
