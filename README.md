@@ -14,7 +14,7 @@ Run the scripts on the cluster with `sbatch` in numerical order.
 ## Output
 Outputs will be in the same folder as the scripts: Mega_dSMF.
 
-Running all 3 scripts (in order) will output:
+Running all scripts (in order) will output:
 
 1) Finely demultiplexed, basecalled, multifast5s. 
 2) All outputs listed in `Megalodon_Output_Notes.txt` and selected in `varSettings.sh`
