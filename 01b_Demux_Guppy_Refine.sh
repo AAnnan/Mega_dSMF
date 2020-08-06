@@ -28,16 +28,6 @@ i=$SLURM_ARRAY_TASK_ID
 
 cd /scratch/TMP_Megalodon_${expName}
 
-### Get Rerio's research model from GitHub (if it doesn't exist already)
-if [[ ! -f ./rerio/basecall_models/res_dna_r941_min_modbases-all-context_v001.cfg ]]
-then
-	echo "Installing Rerio's modbases all context research model"
-    git clone https://github.com/nanoporetech/rerio
-	python rerio/download_model.py rerio/basecall_models/res_dna_r941_min_modbases-all-context_v001
-fi
-# Copy Guppy's barcoding models into Rerio's folder
-cp ${GUPPY_DIR}/../data/barcoding/* ./rerio/basecall_models/barcoding/
-
 ### Run Guppy Basecaller (to refine demultiplexing)
 
 ${GUPPY_DIR}/guppy_basecaller --input_path ./demultiplexed_fast5s_${expName}/${barcodesOfInterest[i]} \
@@ -52,7 +42,7 @@ ${GUPPY_DIR}/guppy_basecaller --input_path ./demultiplexed_fast5s_${expName}/${b
 #Move fast5s from children folders to the parent
 find ./guppyBC/${barcodesOfInterest[i]}/workspace/ -type f -name "*.fast5" | xargs mv -t ./guppyBC/${barcodesOfInterest[i]}/workspace/
 #Create a txt file containing the absolute filename of all barcoded fast5s
-awk -v barcode="${barcodesOfInterest[i]}" '$21==barcode {print "./guppyBC/"barcode"/workspace/"$2".fast5"}' ./guppyBC/${barcodesOfInterest[i]}/sequencing_summary.txt > list_ids_${barcodesOfInterest[i]}.txt
+awk -v barcode="${barcodesOfInterest[i]}" '$21==barcode {print "./guppyBC/"barcode"/workspace/"$1}' ./guppyBC/${barcodesOfInterest[i]}/sequencing_summary.txt > list_ids_${barcodesOfInterest[i]}.txt
 #Move the fast5s contained in the list to their final directory
 mkdir -p ./final_fast5s_${expName}/${barcodesOfInterest[i]}
 xargs mv -t ./final_fast5s_${expName}/${barcodesOfInterest[i]} < list_ids_${barcodesOfInterest[i]}.txt

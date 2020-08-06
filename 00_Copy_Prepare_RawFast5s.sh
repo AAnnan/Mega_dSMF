@@ -24,6 +24,16 @@ source ${CONDA_ACTIVATE} ${condaEnv}
 mkdir -p /scratch/TMP_Megalodon_${expName}/rawFast5
 cd /scratch/TMP_Megalodon_${expName}
 
+### Get Rerio's research model from GitHub (if it doesn't exist already)
+if [[ ! -f ./rerio/basecall_models/res_dna_r941_min_modbases-all-context_v001.cfg ]]
+then
+	echo "Installing Rerio's modbases all context research model"
+    git clone https://github.com/nanoporetech/rerio
+	python rerio/download_model.py rerio/basecall_models/res_dna_r941_min_modbases-all-context_v001
+fi
+# Copy Guppy's barcoding models into Rerio's folder
+cp ${GUPPY_DIR}/../data/barcoding/* ./rerio/basecall_models/barcoding/
+
 # Copy the raw fast5s to the temporary scratch folder
 cp -r ${rawFast5_DIR} ./rawFast5
 
