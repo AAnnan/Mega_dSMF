@@ -20,6 +20,7 @@ Running all scripts (in order) will output:
 1) Finely demultiplexed, basecalled, multifast5s. 
 2) All outputs listed in `Megalodon_Output_Notes.txt` and selected in `varSettings.sh`
 3) PDFs showing barplots of the proportion of methylated motif sites within a barcode.
+4) BigWig files of average dSMF all along the genome (1-fraction methylation).
 
 ## Remarks
 - To demultiplex your raw reads with `01a_Demux_DeepBinner.sh`, you have to have used one of these sequencing/barcoding kit: EXP-NBD103, EXP-NBD104 or very similar.
