@@ -28,28 +28,23 @@ source ${CONDA_ACTIVATE} ${condaEnv}
 
 # Move to scratch temp experiment folder
 cd /scratch/TMP_Megalodon_${expName}
+i=$SLURM_ARRAY_TASK_ID
 
-# Remove previously created intermediate folders and files
-rm -rf ./rawFast5 ./guppyBC ./demultiplexed_fast5s_${expName} list_ids_*.txt rawFast5s*.txt
-
-# Compute settings: 1 GPU and 30 CPU cores
+# Compute settings: 1 GPU and 30 CPU cores per run
 # Other useful options : --num-reads 50000 \ --mod-motif Z GC 1 \
 
-megalodon ./final_fast5s_${expName}/${barcode[i]}/ --guppy-server-path ${GUPPY_DIR}/guppy_basecall_server \
+megalodon ./final_fast5s_${expName}/${barcodesOfInterest[i]}/ --guppy-server-path ${GUPPY_DIR}/guppy_basecall_server \
         --guppy-params "-d ./rerio/basecall_models/" \
         --guppy-config res_dna_r941_min_modbases-all-context_v001.cfg \
         --outputs ${outputs[@]} \
-        --output-directory ./megalodon_results_${barcode[i]}/ \
+        --output-directory ./megalodon_results_${barcodesOfInterest[i]}/ \
         --reference $genomeFile \
         --mod-motif Z GCG 1 --mod-motif Z HCG 1 --mod-motif Z GCH 1 \
         --write-mods-text \
         --mod-aggregate-method binary_threshold \
-        --mod-binary-threshold 0.875 \
+        --mod-binary-threshold 0.89 \
         --mod-output-formats bedmethyl wiggle \
         --mod-map-base-conv C T --mod-map-base-conv Z C \
         --devices 0 --processes 30
-
-# Copy Megalodon's results to the work dir
-cp -r ./megalodon_results_${barcode[i]}/ ${work_DIR}
 
 conda deactivate
