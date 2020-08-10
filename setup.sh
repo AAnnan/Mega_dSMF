@@ -4,8 +4,8 @@ source ./varSettings.sh
 mkdir ../Mega_dSMF_${expName}
 cp -r * ../Mega_dSMF_${expName}
 cd ../Mega_dSMF_${expName}
-work_DIR=$(pwd)
 
+work_DIR=$(pwd)
 echo "work_DIR="${work_DIR} >> varSettings.sh
 
 ##Input Guppy's latest VERSION:
@@ -50,7 +50,7 @@ source ${CONDA_ACTIVATE} ${condaEnv}
 wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/fetchChromSizes
 
 #Get Chrom sizes
-source ./fetchChromSizes ce11 > ce11.chrom.sizes
+bash fetchChromSizes ce11 > ce11.chrom.sizes
 
 #Install wigToBigWig 
 conda install -c bioconda ucsc-wigtobigwig --yes
