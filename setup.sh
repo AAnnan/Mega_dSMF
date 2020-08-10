@@ -22,7 +22,7 @@ SOFTWARE_DIR=${work_DIR}/software
 mkdir -p ${SOFTWARE_DIR}
 cd $SOFTWARE_DIR
 echo "Installing software in " ${SOFTWARE_DIR}
-echo "export SOFTWARE_DIR=${work_DIR}/software" >> ~/.bashrc
+echo "SOFTWARE_DIR="${SOFTWARE_DIR} >> varSettings.sh
 
 #Install conda (or not if already installed)
 #Dealing with miniconda vs anaconda installations
@@ -71,7 +71,7 @@ pip3 install ont-fast5-api
 wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_${GUPPY_VERSION}_linux64.tar.gz
 tar -xzvf ont-guppy_${GUPPY_VERSION}_linux64.tar.gz
 
-echo "export GUPPY_DIR=${SOFTWARE_DIR}/ont-guppy/bin" >> ~/.bashrc
+echo "GUPPY_DIR="${SOFTWARE_DIR}/ont-guppy/bin >> varSettings.sh
 
 #Install Megalodon
 pip3 install Megalodon
