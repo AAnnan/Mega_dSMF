@@ -9,12 +9,12 @@ Analysing nanopore sequencing of dSMF data with Megalodon
 ## Usage
 Before launching the first script: 
 - Review carefully `varSettings.sh` and update the variables according to your data.
-- Set #SBATCH --array to "0-(number of barcodes-1)" in the SLURM resource allocation part of the following scripts: `01b_Demux_Guppy_Refine.sh`, `02_Megalodon.sh` `03_Analysis.sh`.
+- Set #SBATCH --array to "0-(number of barcodes-1)" in the SLURM resource allocation part of the following scripts: `01b_Demux_Guppy_Refine.sh`, `02_Megalodon.sh` and `03_Analysis.sh`.
 
 Run the scripts on the cluster with `sbatch` in numerical order. 
 
 ## Output
-Outputs will be in the same folder as the scripts: Mega_dSMF.
+Outputs will be in the same folder as the scripts: Mega_dSMF_"expName".
 
 Running all scripts (in order) will output:
 1) Finely demultiplexed, basecalled, multifast5s. 
