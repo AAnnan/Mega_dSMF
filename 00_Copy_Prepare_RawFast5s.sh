@@ -16,7 +16,6 @@
 ## .bashrc should include location of conda activate script and export it as ${CONDA_ACTIVATE}
 
 source ./varSettings.sh
-source ~/.bashrc
 
 source ${CONDA_ACTIVATE} ${condaEnv}
 

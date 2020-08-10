@@ -20,7 +20,7 @@
 
 
 source ./varSettings.sh
-source ~/.bashrc
+
 source ${CONDA_ACTIVATE} ${condaEnv}
 
 i=$SLURM_ARRAY_TASK_ID
