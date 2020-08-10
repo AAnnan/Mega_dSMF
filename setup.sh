@@ -1,5 +1,13 @@
 #! /bin/bash
 
+source ./varSettings.sh
+mkdir ../Mega_dSMF_${expName}
+cp -r * ../Mega_dSMF_${expName}
+cd ../Mega_dSMF_${expName}
+work_DIR=$(pwd)
+
+echo "work_DIR="${work_DIR} >> varSettings.sh
+
 ##Input Guppy's latest VERSION:
 
 read -p 'Input newest Guppy version (ie: 4.0.14): ' GUPPY_VERSION
@@ -13,11 +21,11 @@ else
 fi
 
 ##Create software directory
-SOFTWARE_DIR=${HOME}/Mega_dSMF/software_Mega_dSMF
+SOFTWARE_DIR=${HOME}/Mega_dSMF_${expName}/software
 mkdir -p ${SOFTWARE_DIR}
 cd $SOFTWARE_DIR
 echo "Installing software in " ${SOFTWARE_DIR}
-echo "export SOFTWARE_DIR=${HOME}/Mega_dSMF/software_Mega_dSMF" >> ~/.bashrc
+echo "export SOFTWARE_DIR=${HOME}/Mega_dSMF_${expName}/software" >> ~/.bashrc
 
 #Install conda (or not if already installed)
 #Dealing with miniconda vs anaconda installations
@@ -32,11 +40,20 @@ fi
 echo "export CONDA_ACTIVATE=${CONDA_PACKAGE%conda}activate" >> ~/.bashrc
 
 #Create Conda env
-conda create --name Mega_dSMF python=3.7 --yes
+conda create --name ${condaEnv} python=3.7 --yes
 
 #Activate conda env
 source ~/.bashrc
-source ${CONDA_ACTIVATE} Mega_dSMF
+source ${CONDA_ACTIVATE} ${condaEnv}
+
+#Get fetchChromSizes
+wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/fetchChromSizes
+
+#Get Chrom sizes
+source ./fetchChromSizes ce11 > ce11.chrom.sizes
+
+#Install wigToBigWig 
+conda install -c bioconda ucsc-wigtobigwig --yes
 
 #Install Samtools
 conda install -c bioconda samtools --yes

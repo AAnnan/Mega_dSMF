@@ -1,13 +1,10 @@
 #! /bin/bash
 
-# Get current Directory 
-work_DIR=$(pwd)
-
 # name of your conda environment
 condaEnv=Mega_dSMF
 
-# name of experiment
-expName="20190830_dsmf"  
+# Short name of experiment
+expName="dSMF_train"  
 
 # barcodes used (Space separated)
 barcodesOfInterest=(barcode01 barcode04)
@@ -23,7 +20,7 @@ genomeFile=/mnt/imaging.data/pmeister/ce11/genome.fa
 ###############
 
 # Outputs chosen (Space separated)
-# Default all outputs except mod_basecalls (bottleneck issue, see github): basecalls mappings mods per_read_mods mod_mappings
+# Default all outputs except mod_basecalls (bottleneck issue with HDF files, is likely to change): basecalls mappings mods per_read_mods mod_mappings
 # Refer to Megalodon_Output_Notes.txt if you're unsure
 outputs=(basecalls mappings mods per_read_mods mod_mappings)
 
