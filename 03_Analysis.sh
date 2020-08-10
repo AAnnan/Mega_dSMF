@@ -38,7 +38,7 @@ wigToBigWig ${expName}_${barcodesOfInterest[i]}_rev.wig ${SOFTWARE_DIR}/ce11.chr
 python ${work_DIR}/methyl_plot.py ${barcodesOfInterest[i]}
 
 # Copy Megalodon's results to the work dir
-cp -r ./megalodon_results_${barcodesOfInterest[i]}/ ${work_DIR}
+cp -r ../megalodon_results_${barcodesOfInterest[i]}/ ${work_DIR}
 
 # Remove previously created intermediate folders and files
 rm -rf ./rawFast5 ./guppyBC ./demultiplexed_fast5s_${expName} list_ids_*.txt rawFast5s*.txt
