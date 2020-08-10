@@ -14,7 +14,7 @@
 #SBATCH --mail-type=end,fail
 
 
-## #SBATCH --array=0-3 parameter should be CHANGED according to NUMBER OF BARCODES:
+## #SBATCH --array parameter should be CHANGED according to NUMBER OF BARCODES:
 ## array=0-(total number of barcodes-1)
 
 ## Script to run Megalodon on all listed barcodes on maximum GPUs available

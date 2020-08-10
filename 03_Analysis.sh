@@ -12,7 +12,7 @@
 #SBATCH --mail-user=ahrmad.annan@students.unibe.ch
 #SBATCH --mail-type=end,fail
 
-## #SBATCH --array=0-3 parameter should be CHANGED according to NUMBER OF BARCODES:
+## #SBATCH --array parameter should be CHANGED according to NUMBER OF BARCODES:
 ## array=0-(total number of barcodes-1)
 
 ## Should be run in the same folder as varSettings.sh
@@ -33,6 +33,9 @@ awk '{if ($2 ~/^[0-1]\.?[0-9]*$/) print $1,1-$2; else print $0}' modified_bases.
 #Convert wig to Bigwig
 wigToBigWig ${expName}_${barcodesOfInterest[i]}_fwd.wig ${SOFTWARE_DIR}/ce11.chrom.sizes ${expName}_${barcodesOfInterest[i]}_fwd.bw
 wigToBigWig ${expName}_${barcodesOfInterest[i]}_rev.wig ${SOFTWARE_DIR}/ce11.chrom.sizes ${expName}_${barcodesOfInterest[i]}_rev.bw
+
+# Create barplot of the proportion of methylated motif sites
+python ${work_DIR}/methyl_plot.py ${barcodesOfInterest[i]}
 
 # Copy Megalodon's results to the work dir
 cp -r ./megalodon_results_${barcodesOfInterest[i]}/ ${work_DIR}

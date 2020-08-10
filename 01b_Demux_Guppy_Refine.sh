@@ -13,7 +13,7 @@
 #SBATCH --job-name="Guppy Refine Demux"
 
 
-## #SBATCH --array=0-3 parameter should be CHANGED according to NUMBER OF BARCODES:
+## #SBATCH --array parameter should be CHANGED according to NUMBER OF BARCODES:
 ## array=0-(total number of barcodes-1)
 
 ## Script to refine DeepBinner's demultiplexing output with Guppy Barcoder
