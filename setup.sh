@@ -1,9 +1,6 @@
 #! /bin/bash
 
 source ./varSettings.sh
-mkdir ../Mega_dSMF_${expName}
-cp -r * ../Mega_dSMF_${expName}
-cd ../Mega_dSMF_${expName}
 
 work_DIR=$(pwd)
 echo "work_DIR="${work_DIR} >> varSettings.sh
@@ -21,11 +18,11 @@ else
 fi
 
 ##Create software directory
-SOFTWARE_DIR=${HOME}/Mega_dSMF_${expName}/software
+SOFTWARE_DIR=${work_DIR}/software
 mkdir -p ${SOFTWARE_DIR}
 cd $SOFTWARE_DIR
 echo "Installing software in " ${SOFTWARE_DIR}
-echo "export SOFTWARE_DIR=${HOME}/Mega_dSMF_${expName}/software" >> ~/.bashrc
+echo "export SOFTWARE_DIR=${work_DIR}/software" >> ~/.bashrc
 
 #Install conda (or not if already installed)
 #Dealing with miniconda vs anaconda installations
