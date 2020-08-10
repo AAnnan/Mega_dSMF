@@ -7,7 +7,9 @@ Analysing nanopore sequencing of dSMF data with Megalodon
 3) launch setup.sh, you will be asked to input Guppy's latest version. You can check it here: https://community.nanoporetech.com/downloads/guppy/release_notes
 
 ## Usage
-Before launching the first script, review carefully `varSettings.sh` and update the variables according to your data. You also have to set #SBATCH --array to "0-(number of barcodes-1)" in the SLURM resource allocation part of the following scripts: `01b_Demux_Guppy_Refine.sh` and `02_Megalodon.sh`.
+Before launching the first script: 
+- Review carefully `varSettings.sh` and update the variables according to your data.
+- Set #SBATCH --array to "0-(number of barcodes-1)" in the SLURM resource allocation part of the following scripts: `01b_Demux_Guppy_Refine.sh`, `02_Megalodon.sh` `03_Analysis.sh`.
 
 Run the scripts on the cluster with `sbatch` in numerical order. 
 
@@ -15,7 +17,6 @@ Run the scripts on the cluster with `sbatch` in numerical order.
 Outputs will be in the same folder as the scripts: Mega_dSMF.
 
 Running all scripts (in order) will output:
-
 1) Finely demultiplexed, basecalled, multifast5s. 
 2) All outputs listed in `Megalodon_Output_Notes.txt` and selected in `varSettings.sh`
 3) PDFs showing barplots of the proportion of methylated motif sites within a barcode.
