@@ -4,7 +4,7 @@
 condaEnv=Mega_dSMF
 
 # Short name of experiment
-expName="dSMF_train"  
+expName="train"  
 
 # barcodes used (Space separated)
 barcodesOfInterest=(barcode01 barcode04)
