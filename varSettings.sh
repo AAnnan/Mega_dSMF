@@ -4,7 +4,7 @@
 condaEnv=Mega_dSMF
 
 # Short name of experiment
-expName="train"  
+expName="tester"  
 
 # barcodes used (Space separated)
 barcodesOfInterest=(barcode01 barcode04)
@@ -14,6 +14,9 @@ rawFast5_DIR=/home/aannan/rawF5
 
 # location of genome file for alignment
 genomeFile=/mnt/imaging.data/pmeister/ce11/genome.fa
+
+#Probability threshold above which a C will be declared methylated
+k=0.85
 
 ###############
 ## MEGALODON ##

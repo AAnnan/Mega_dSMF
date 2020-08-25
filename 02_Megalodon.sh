@@ -28,23 +28,35 @@ source ${CONDA_ACTIVATE} ${condaEnv}
 
 # Move to scratch temp experiment folder
 cd /scratch/TMP_Megalodon_${expName}
+
 i=$SLURM_ARRAY_TASK_ID
 
 # Compute settings: 1 GPU and 30 CPU cores per run
-# Other useful options : --num-reads 50000 \ --mod-motif Z GC 1 \
+# Other useful option : --num-reads 5000 \ (for testing)
 
-megalodon ./final_fast5s_${expName}/${barcodesOfInterest[i]}/ --guppy-server-path ${GUPPY_DIR}/guppy_basecall_server \
-        --guppy-params "-d ./rerio/basecall_models/" \
+megalodon ./final_fast5s_${expName}/${barcodesOfInterest[${i}]}/ --guppy-server-path ${GUPPY_DIR}/guppy_basecall_server \
+        --guppy-params "-d ./rerio/basecall_models/ --num_callers 5 --ipc_threads 6" \
         --guppy-config res_dna_r941_min_modbases-all-context_v001.cfg \
         --outputs ${outputs[@]} \
-        --output-directory ./megalodon_results_${barcodesOfInterest[i]}/ \
+        --output-directory ./megalodon_results_${barcodesOfInterest[${i}]}/ \
         --reference $genomeFile \
         --mod-motif Z GCG 1 --mod-motif Z HCG 1 --mod-motif Z GCH 1 \
         --write-mods-text \
         --mod-aggregate-method binary_threshold \
-        --mod-binary-threshold 0.89 \
+        --mod-binary-threshold 0.6 \
         --mod-output-formats bedmethyl wiggle \
+        --sort-mappings \
+        --mod-map-emulate-bisulfite \
         --mod-map-base-conv C T --mod-map-base-conv Z C \
-        --devices 0 --processes 30
+        --devices 0 --processes 30 
+
+##Split DB by motif, important for downstream analysis
+megalodon_extras modified_bases split_by_motif $genomeFile \
+                --motif GCG 1 \
+                --motif HCG 1 \
+                --motif GCH 1 \
+        --megalodon-directory ./megalodon_results_${barcodesOfInterest[${i}]}/ \
+        --output-suffix ${barcodesOfInterest[${i}]}_splitMotif \
+        --output-prefix ${barcodesOfInterest[${i}]}
 
 conda deactivate
