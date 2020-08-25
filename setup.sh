@@ -7,7 +7,7 @@ echo "work_DIR="${work_DIR} >> varSettings.sh
 
 ##Input Guppy's latest VERSION:
 
-read -p 'Input newest Guppy version (ie: 4.0.14): ' GUPPY_VERSION
+read -p 'Input Newest Guppy version (ie: 4.0.15), check it here: community.nanoporetech.com/downloads ' GUPPY_VERSION
 
 if [[ ! $GUPPY_VERSION =~ ^[0-9,.]*$ ]]
 then
@@ -43,13 +43,10 @@ conda create --name ${condaEnv} python=3.7 --yes
 source ~/.bashrc
 source ${CONDA_ACTIVATE} ${condaEnv}
 
-#Get fetchChromSizes
-wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/fetchChromSizes
+#Install fetchchromsizes
+conda install -c bioconda ucsc-fetchchromsizes --yes
 
-#Get Chrom sizes
-bash fetchChromSizes ce11 > ce11.chrom.sizes
-
-#Install wigToBigWig 
+#Install wigToBigWig
 conda install -c bioconda ucsc-wigtobigwig --yes
 
 #Install Samtools
@@ -75,6 +72,6 @@ echo "GUPPY_DIR="${SOFTWARE_DIR}/ont-guppy/bin >> ../varSettings.sh
 
 #Install Megalodon
 pip3 install Megalodon
-pip3 install git+https://github.com/nanoporetech/megalodon@guppy_client
+pip3 install ont_pyguppy_client_lib
 
-echo "Everything looks ready for your Megalodon run"
+echo "Done"
