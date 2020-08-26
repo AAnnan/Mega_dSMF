@@ -10,7 +10,7 @@ expName="tester"
 barcodesOfInterest=(barcode01 barcode04)
 
 # Absolute path of dir containing the raw fast5 from sequencing
-rawFast5_DIR=/home/aannan/rawF5
+rawFast5_DIR=/home/aannan/rawF5_test
 
 # location of genome file for alignment
 genomeFile=/mnt/imaging.data/pmeister/ce11/genome.fa
