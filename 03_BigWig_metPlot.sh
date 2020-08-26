@@ -19,30 +19,31 @@ source ./varSettings.sh
 
 source ${CONDA_ACTIVATE} ${condaEnv}
 i=$SLURM_ARRAY_TASK_ID
+lib=${barcodesOfInterest[${i}]}
 
 # Move to scratch temp experiment folder
-cd /scratch/TMP_Megalodon_${expName}/megalodon_results_${barcodesOfInterest[${i}]}
+cd /scratch/TMP_Megalodon_${expName}/megalodon_results_${lib}
 
 # Run Python sqlite DB extraction
-python ${work_DIR}/03_Build_BigWig_helper.py ${barcodesOfInterest[${i}]} ${k}
+python ${work_DIR}/03_BigWig_metPlot_helper.py ${lib} ${k}
 
 # Build Wigs
 chrom=(chrI chrII chrIII chrIV chrM chrV chrX)
 
 for j in $(seq 7); do
-	echo variableStep chrom=${chrom[${j}-1]} span=1 >> ${barcodesOfInterest[${i}]}.wig
-	cat ${j}.txt >> ${barcodesOfInterest[${i}]}.wig
-	echo variableStep chrom=${chrom[${j}-1]} span=1 >> ${barcodesOfInterest[${i}]}_w10.wig
-	cat ${j}_w10.txt >> ${barcodesOfInterest[${i}]}_w10.wig
+	echo variableStep chrom=${chrom[${j}-1]} span=1 >> ${lib}.wig
+	cat ${j}.txt >> ${lib}.wig
+	echo variableStep chrom=${chrom[${j}-1]} span=1 >> ${lib}_w10.wig
+	cat ${j}_w10.txt >> ${lib}_w10.wig
 	rm ${j}.txt ${j}_w10.txt
 done
 
 # Build BigWigs
 fetchChromSizes ce11 > ce11.chrom.sizes
-wigToBigWig ${barcodesOfInterest[${i}]}.wig ce11.chrom.sizes ${barcodesOfInterest[${i}]}.bw
-wigToBigWig ${barcodesOfInterest[${i}]}_w10.wig ce11.chrom.sizes ${barcodesOfInterest[${i}]}_w10.bw
+wigToBigWig ${lib}.wig ce11.chrom.sizes ${lib}.bw
+wigToBigWig ${lib}_w10.wig ce11.chrom.sizes ${lib}_w10.bw
 
 # Remove intermediary files
-rm ${barcodesOfInterest[${i}]}.wig ${barcodesOfInterest[${i}]}_w10.wig ce11.chrom.sizes
+rm ${lib}.wig ${lib}_w10.wig ce11.chrom.sizes
 
 conda deactivate

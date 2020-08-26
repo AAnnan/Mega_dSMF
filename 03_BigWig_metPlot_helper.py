@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 ### Global Variables
 lib = sys.argv[1] #${barcodesOfInterest[${i}]}
 k = sys.argv[2]
-motifs = ['GCG','HCG','GCH']
+motifs = ['HCG','GCH','GCG']
 
 ### Functions
 def get_score_list_per_motif(per_read_db_file,strand,motif):
@@ -96,34 +96,21 @@ def save_methyl_prob_plot(score_list,motif,lib,k):
 	
 	plt.savefig(f'{motif}_{k}methyl_prob_plot.pdf')
 
+	plt.close()
+
 	return 0
 
-########################################################################
-##########################Database Extraction###########################
-########################################################################
-
-strands = [0, 1]
-score_list = []
-gc_scores = []
-cg_scores = []
-##Retrieve the whole score list (pos,score) from the DBs
-for motif in motifs:
-	for strand in strands:
-		if motif == 'HCG':
-			cg_l = get_score_list_per_motif(f'./{lib}.{motif}_1/per_read_modified_base_calls.db',strand,motif)
-			cg_scores = cg_scores + cg_l[:,1]
-			score_list = score_list + cg_l
-		elif motif == 'GCH':
-			gc_l = get_score_list_per_motif(f'./{lib}.{motif}_1/per_read_modified_base_calls.db',strand,motif)
-			gc_scores = gc_scores + gc_l[:,1]
-			score_list = score_list + gc_l
-		elif motif == 'GCG':
-			score_list = score_list + get_score_list_per_motif(f'./{lib}.{motif}_1/per_read_modified_base_calls.db',strand,motif)
-all_scores = score_list[:,1]
 
 ########################################################################
 ##############################Build BigWig##############################
 ########################################################################
+
+strands = [0, 1]
+score_list = []
+##Retrieve the whole score list (pos,score) from the DBs
+for motif in motifs:
+	for strand in strands:
+		score_list = score_list + get_score_list_per_motif(f'./{lib}.{motif}_1/per_read_modified_base_calls.db',strand,motif)
 
 #Store in Numpy array, transform the scores to get 1-fraction methylated
 unlog_sc = np.array(score_list,dtype=np.float64)
@@ -160,14 +147,10 @@ for cl in range(1,len(chrm_lens)):
 ##########################Build Methyl Plot#############################
 ########################################################################
 
-for sc in gc_scores,cg_scores,all_scores:
-	sc_unlog = np.exp(sc)
+save_methyl_prob_plot(get_scores(f'./{lib}.HCG_1/per_read_modified_base_calls.db'),'CG',lib,k)
 
-	if sc is gc_scores:
-		save_methyl_prob_plot(sc_unlog,'CG',lib,k)
-	elif sc is cg_scores:
-		save_methyl_prob_plot(sc_unlog,'GC',lib,k)
-	elif sc is all_scores:
-		save_methyl_prob_plot(sc_unlog,'CG & GC',lib,k)
+save_methyl_prob_plot(get_scores(f'./{lib}.GCH_1/per_read_modified_base_calls.db'),'GC',lib,k)
+
+save_methyl_prob_plot(get_scores(f'./per_read_modified_base_calls.db'),'CG_GC',lib,k)
 	
 
