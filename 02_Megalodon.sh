@@ -50,12 +50,14 @@ megalodon ./final_fast5s_${expName}/${barcodesOfInterest[${i}]}/ --guppy-server-
         --mod-map-base-conv C T --mod-map-base-conv Z C \
         --devices 0 --processes 30 
 
+cd ./megalodon_results_${barcodesOfInterest[${i}]}
+
 ##Split DB by motif, important for downstream analysis
 megalodon_extras modified_bases split_by_motif $genomeFile \
                 --motif GCG 1 \
                 --motif HCG 1 \
                 --motif GCH 1 \
-        --megalodon-directory ./megalodon_results_${barcodesOfInterest[${i}]}/ \
+        --megalodon-directory ./ \
         --output-suffix ${barcodesOfInterest[${i}]}_splitMotif \
         --output-prefix ${barcodesOfInterest[${i}]}
 
