@@ -15,9 +15,8 @@ import numpy as np
 import pandas as pd
 
 ### Global Variables
-mega_folder = sys.argv[1]
-lib = sys.argv[2] #${barcodesOfInterest[${i}]}
-k = sys.argv[3]
+lib = sys.argv[1] #${barcodesOfInterest[${i}]}
+k = sys.argv[2]
 motifs = ['GCG','HCG','GCH']
 
 def get_score_list_per_motif(per_read_db_file,strand,motif):
@@ -55,7 +54,7 @@ score_list = []
 ##Retrieve the whole score list (pos,score) from the DBs
 for motif in motifs:
 	for strand in strands:
-		score_list = score_list + get_score_list_per_motif(f'{mega_folder}/{lib}.{motif}_1/per_read_modified_base_calls.db',strand,motif)
+		score_list = score_list + get_score_list_per_motif(f'./{lib}.{motif}_1/per_read_modified_base_calls.db',strand,motif)
 
 #Store in Numpy array, transform the scores to get 1-fraction methylated
 unlog_sc = np.array(score_list,dtype=np.float64)
