@@ -80,7 +80,6 @@ pip3 install Megalodon
 pip3 install ont_pyguppy_client_lib
 
 # Create and move to a temporary scratch folder
-mkdir -p /scratch/TMP_Megalodon_${expName}/rawFast5
 cd /scratch/TMP_Megalodon_${expName}
 
 ### Get Rerio's research model from GitHub (if it doesn't exist already)
@@ -96,6 +95,7 @@ cp ${GUPPY_DIR}/../data/barcoding/* ./rerio/basecall_models/barcoding/
 if [ "${two_pass}" = "yes" ]; then
 	echo "Preparation of raw Fast5s before 2-pass demultiplexing"
 	# Copy the raw fast5s to the temporary scratch folder
+	mkdir -p /scratch/TMP_Megalodon_${expName}/rawFast5
 	cp -r ${rawFast5_DIR} ./rawFast5
 
 	#Move fast5s from children folders to the parent folder
