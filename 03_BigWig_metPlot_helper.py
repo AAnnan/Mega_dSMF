@@ -85,7 +85,7 @@ def save_methyl_prob_plot(score_list,motif,lib,k):
 
 	score_count = np.array(np.unique(score_list, return_counts=True)).T
 	#rolling mean, window of 50 to smooth discrete peaks in low probability Cs
-	scores_w50 = uniform_filter1d(score_list[:,1], size=50)
+	scores_w50 = uniform_filter1d(score_count[:,1], size=50)
 
 	##Build Plot
 	#BarPlot scores on X and the number of motifs having obtained that score on Y
