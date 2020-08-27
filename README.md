@@ -18,9 +18,9 @@ Run the scripts on the cluster with `sbatch` in numerical order.
 Outputs will be in a folder named `output` in the Mega_dSMF folder.
 
 Running all scripts (in order) will output:
-1) Finely demultiplexed (by DeepBinner then Guppy Barcoder), basecalled, multifast5s. 
+1) 2-pass or 1-pass demultiplexed, basecalled, multifast5s. 
 2) All outputs listed in `Megalodon_Output_Notes.txt` and selected in `varSettings.sh`
-3) BigWig files of (1-Methylate Fraction) along the genome.
+3) BigWig files of (1-Methylates Fraction) along the genome.
 4) PDFs barplots of the distribution of methylation probabilities per C site, within a barcode.
 
 ## Remarks
