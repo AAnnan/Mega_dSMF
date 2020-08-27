@@ -10,7 +10,7 @@ Analysing nanopore sequencing of dSMF data with Megalodon
 ## Usage
 Before launching the first script: 
 - Set #SBATCH --array to "0-(number of barcodes-1)" in the SLURM resource allocation part of the following scripts: `01b_Demux_Guppy.sh`, `02_Megalodon.sh` and `03_BigWig_metPlot.sh`.
-- To demultiplex your raw reads with `01a_Demux_DeepBinner.sh`, you must have used one of these sequencing/barcoding kits: EXP-NBD103, EXP-NBD104 or very similar. If you have used a different kit, skip `01a_Demux_DeepBinner.sh` and demultiplex directly with `01b_Demux_Guppy.sh`. You will have to update `varSettings.sh` accordingly.
+- To demultiplex your raw reads with `01a_Demux_DeepBinner.sh`, you must have used one of these sequencing/barcoding kits: EXP-NBD103, EXP-NBD104 or very similar. If you have used a different kit, skip `01a_Demux_DeepBinner.sh` and demultiplex directly with `01b_Demux_Guppy.sh`. You will have to update the `two_pass` variable in `varSettings.sh` accordingly.
 
 Run the scripts on the cluster with `sbatch` in numerical order. 
 
