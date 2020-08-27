@@ -43,7 +43,7 @@ megalodon ./final_fast5s_${expName}/${barcodesOfInterest[${i}]}/ --guppy-server-
         --mod-motif Z GCG 1 --mod-motif Z HCG 1 --mod-motif Z GCH 1 \
         --write-mods-text \
         --mod-aggregate-method binary_threshold \
-        --mod-binary-threshold 0.6 \
+        --mod-binary-threshold ${k} \
         --mod-output-formats bedmethyl wiggle \
         --sort-mappings \
         --mod-map-emulate-bisulfite \
