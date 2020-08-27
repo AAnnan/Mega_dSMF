@@ -5,7 +5,7 @@
 ####################################
 
 # Short name of the experiment
-expName="tester"  
+expName=tester
 
 # barcodes of interest (Space separated)
 barcodesOfInterest=(barcode01 barcode04)
@@ -15,7 +15,7 @@ rawFast5_DIR=/home/aannan/rawF5_test
 
 # Perform 2-pass demultiplexing (1st pass: DeepBinner, 2nd pass: Guppy Barcoder)
 # Only use yes if you've used these barcoding kits: EXP-NBD103, EXP-NBD104 or very similar.
-two_pass="yes"
+two_pass=yes
 
 ###############################
 ## MAY OR MAY NOT BE UPDATED ##
@@ -25,7 +25,7 @@ two_pass="yes"
 condaEnv=Mega_dSMF
 
 #barcode kit used
-bc_kit="EXP-NBD104"
+bc_kit=EXP-NBD104
 
 # location of genome file for alignment
 genomeFile=/mnt/imaging.data/pmeister/ce11/genome.fa
