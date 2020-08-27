@@ -54,7 +54,22 @@ if [ "${two_pass}" = "yes" ]; then
 	    --batch_size 20000
 
 elif [ "${two_pass}" = "no" ]; then
+	#Only run on 1 instance
 	if [ "${i}" = "0" ]; then
+
+		#Check if raw fast5s are single or multi. If multi, transform to singles
+		first_f5=$(find ${rawFast5_DIR} -name *.fast5 -print -quit)
+		singl_or_multi=$(grep -ac 'read_id' ${first_f5})
+		
+		if [ "${singl_or_multi}" -gt 1 ]; then
+			multi_to_single_fast5 --input_path ${rawFast5_DIR} \
+				--save_path ./single_rawFast5 \
+				--threads 30 \
+				--recursive
+
+			rawFast5_DIR=./single_rawFast5
+		fi
+
 		${GUPPY_DIR}/guppy_basecaller --input_path ${rawFast5_DIR} \
 			--save_path ./guppyBC \
 			--data_path ./rerio/basecall_models/ \
