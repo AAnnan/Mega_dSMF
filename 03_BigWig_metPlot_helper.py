@@ -14,6 +14,8 @@ import sqlite3
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from scipy.ndimage.filters import uniform_filter1d
+
 
 ### Global Variables
 lib = sys.argv[1] #${barcodesOfInterest[${i}]}
@@ -82,19 +84,22 @@ def save_methyl_prob_plot(score_list,motif,lib,k):
 	"""
 
 	score_count = np.array(np.unique(score_list, return_counts=True)).T
+	#rolling mean, window of 50 to smooth discrete peaks in low probability Cs
+	scores_w50 = uniform_filter1d(score_list[:,1], size=50)
 
 	##Build Plot
 	#BarPlot scores on X and the number of motifs having obtained that score on Y
-	plt.bar(score_count[:,0], score_count[:,1], align='center', width=0.008)
+	plt.bar(score_count[:,0], scores_w50, align='center', width=0.025)
+
 
 	plt.axvline(x=float(k), color='r', linestyle='--',label=f'Threshold={float(k)}')
-	plt.legend(loc='upper right',fontsize='small')
+	plt.legend(loc='upper left',fontsize='small')
 
 	plt.ylabel(f'{motif} Site Count')
 	plt.xlabel('Methylation probability')
-	plt.title(lib)
+	plt.title(f'{lib} {motif}')
 	
-	plt.savefig(f'{motif}_{k}methyl_prob_plot.pdf')
+	plt.savefig(f'{lib}_{motif}_{k}methyl_prob_plot.pdf')
 
 	plt.close()
 
@@ -147,10 +152,10 @@ for cl in range(1,len(chrm_lens)):
 ##########################Build Methyl Plot#############################
 ########################################################################
 
-save_methyl_prob_plot(get_scores(f'./{lib}.HCG_1/per_read_modified_base_calls.db'),'CG',lib,k)
+save_methyl_prob_plot(get_scores(f'./{lib}.HCG_1/per_read_modified_base_calls.db'),'CpG',lib,k)
 
-save_methyl_prob_plot(get_scores(f'./{lib}.GCH_1/per_read_modified_base_calls.db'),'GC',lib,k)
+save_methyl_prob_plot(get_scores(f'./{lib}.GCH_1/per_read_modified_base_calls.db'),'GpC',lib,k)
 
-save_methyl_prob_plot(get_scores(f'./per_read_modified_base_calls.db'),'CG_GC',lib,k)
+save_methyl_prob_plot(get_scores(f'./per_read_modified_base_calls.db'),'CpG_GpC',lib,k)
 	
 

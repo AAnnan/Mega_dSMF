@@ -15,8 +15,9 @@ rawFast5_DIR=/home/aannan/rawF5_test
 # location of genome file for alignment
 genomeFile=/mnt/imaging.data/pmeister/ce11/genome.fa
 
-#Probability threshold above which a C will be declared methylated
-k=0.85
+#Probability threshold above which a C will be declared methylated, 
+#					   under which a C will be declared canonical
+k=0.6
 
 ###############
 ## MEGALODON ##
