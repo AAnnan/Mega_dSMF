@@ -1,22 +1,40 @@
 #! /bin/bash
 
-# name of your conda environment
-condaEnv=Mega_dSMF
+####################################
+## /!\ TO UPDATE EVERY LAUNCH /!\ ##
+####################################
 
-# Short name of experiment
+# Short name of the experiment
 expName="tester"  
 
-# barcodes used (Space separated)
+# barcodes of interest (Space separated)
 barcodesOfInterest=(barcode01 barcode04)
 
-# Absolute path of dir containing the raw fast5 from sequencing
+# Absolute path of directory containing the raw fast5 from sequencing
 rawFast5_DIR=/home/aannan/rawF5_test
+
+# Perform 2-pass demultiplexing (1st pass: DeepBinner, 2nd pass: Guppy Barcoder)
+# Only use yes if you've used these barcoding kits: EXP-NBD103, EXP-NBD104 or very similar.
+two_pass="yes"
+
+###############################
+## MAY OR MAY NOT BE UPDATED ##
+###############################
+
+# name of the conda environment that will be created
+condaEnv=Mega_dSMF
+
+#barcode kit used
+bc_kit="EXP-NBD104"
 
 # location of genome file for alignment
 genomeFile=/mnt/imaging.data/pmeister/ce11/genome.fa
 
-#Probability threshold above which a C will be declared methylated, 
-#					   under which a C will be declared canonical
+# Name of Rerio's config model to use
+modelConfig=res_dna_r941_min_modbases-all-context_v001
+
+#Probability threshold above which the base of interest will be declared methylated, 
+#					   under which the base of interest will be declared canonical
 k=0.6
 
 ###############
@@ -24,8 +42,8 @@ k=0.6
 ###############
 
 # Outputs chosen (Space separated)
-# Default all outputs except mod_basecalls (bottleneck issue with HDF files, is likely to change): basecalls mappings mods per_read_mods mod_mappings
-# Refer to Megalodon_Output_Notes.txt if you're unsure
+# Default all outputs except mod_basecalls : basecalls mappings mods per_read_mods mod_mappings
+# Refer to Megalodon_Output_Notes.txt
 outputs=(basecalls mappings mods per_read_mods mod_mappings)
 
 #### Modifications you're looking for (--mod-motif)#####

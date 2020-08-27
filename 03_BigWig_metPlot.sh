@@ -46,4 +46,7 @@ wigToBigWig ${lib}_w10.wig ce11.chrom.sizes ${lib}_w10.bw
 # Remove intermediary files
 rm ${lib}.wig ${lib}_w10.wig ce11.chrom.sizes
 
+# Copy files to work folder
+cp *.bw *.pdf ${work_DIR}/output/megalodon_results_${barcodesOfInterest[${i}]}/.
+
 conda deactivate
