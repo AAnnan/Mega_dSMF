@@ -36,7 +36,7 @@ i=$SLURM_ARRAY_TASK_ID
 
 megalodon ./final_fast5s_${expName}/${barcodesOfInterest[${i}]}/ --guppy-server-path ${GUPPY_DIR}/guppy_basecall_server \
         --guppy-params "-d ./rerio/basecall_models/ --num_callers 5 --ipc_threads 6" \
-        --guppy-config res_dna_r941_min_modbases-all-context_v001.cfg \
+        --guppy-config ${modelConfig}.cfg \
         --outputs ${outputs[@]} \
         --output-directory ./megalodon_results_${barcodesOfInterest[${i}]}/ \
         --reference $genomeFile \
@@ -60,5 +60,7 @@ megalodon_extras modified_bases split_by_motif $genomeFile \
         --megalodon-directory ./ \
         --output-suffix ${barcodesOfInterest[${i}]}_splitMotif \
         --output-prefix ${barcodesOfInterest[${i}]}
+
+cp -r ../megalodon_results_${barcodesOfInterest[${i}]} ${work_DIR}/output/.
 
 conda deactivate
