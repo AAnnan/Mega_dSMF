@@ -5,7 +5,7 @@ Analysing nanopore sequencing of dSMF data with Megalodon
 1) Log in the **GPU** node (IZBDelhi). This is important to make use of the faster scratch folder. Make sure that you have Conda installed with `conda --version`
 2) `git clone https://github.com/AAnnan/Mega_dSMF`
 3) Review carefully `varSettings.sh` and update the variables according to your data.
-4) launch installation with `bash 00_Setup.sh`, you will be asked to input Guppy's latest version. You can check it here: https://community.nanoporetech.com/downloads/guppy/release_notes
+4) Launch installation with `bash 00_Setup.sh`, you will be asked to input Guppy's latest version. You can check it here: https://community.nanoporetech.com/downloads/guppy/release_notes
 
 ## Usage
 Before launching the first script: 
