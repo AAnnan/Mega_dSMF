@@ -25,7 +25,7 @@ motifs = ['HCG','GCH','GCG']
 ### Functions
 def get_score_list_per_motif(per_read_db_file,strand,motif):
 	"""
-	Input:  per-read db (str)
+	Input:  per-read db location (str)
 			Strand (0=FWD 1=REV) (int)
 			Motif ('GCG','HCG','GCH') (str)
 	Ouput:  List each motif position with its associated score
@@ -57,7 +57,7 @@ def get_score_list_per_motif(per_read_db_file,strand,motif):
 
 def get_scores(per_read_db_file):
 	"""
-	Input:  per-read db (str)
+	Input:  per-read db location (str)
 	Ouput:  List with scores only, unexp
 	"""
 	#Connect to the DB
@@ -133,15 +133,11 @@ cumsum_chrm_lens = np.cumsum(chrm_lens)
 for cl in range(1,len(chrm_lens)):
 
 	#Select chromosome-specific scores
-	mask_split1 = unlog_sc[:,0] > cumsum_chrm_lens[cl-1]
-	unlog_sc_split1 = unlog_sc[mask_split1]
-	mask_split2 = unlog_sc_split1[:,0] <= cumsum_chrm_lens[cl]
-	unlog_sc_split2 = unlog_sc_split1[mask_split2]
-
-	unlog_sc_split2[:,0] = unlog_sc_split2[:,0] - cumsum_chrm_lens[cl-1]
+	unlog_sc_perChr = unlog_sc[ (unlog_sc[:,0]>cumsum_chrm_lens[cl-1]) & (unlog_sc[:,0]<=cumsum_chrm_lens[cl]) ]
+	unlog_sc_perChr[:,0] = unlog_sc_perChr[:,0] - cumsum_chrm_lens[cl-1]
 
 	#Aggregate per position with average
-	unlog_sc_unq = pd.DataFrame(unlog_sc_split2).groupby(0).mean()
+	unlog_sc_unq = pd.DataFrame(unlog_sc_perChr).groupby(0).mean()
 	#Apply a 10-base rolling window average
 	unlog_sc_unq_rwa = unlog_sc_unq.rolling(10,min_periods=1).mean()
 	#Output to txt
