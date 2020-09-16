@@ -5,8 +5,8 @@
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --array=0-1
-#SBATCH --mem=240G
-#SBATCH –-cpus-per-task=30
+#SBATCH --mem=96G
+#SBATCH –-cpus-per-task=8
 
 ## job metadata
 #SBATCH --job-name="Megalodon"
@@ -31,10 +31,10 @@ cd /scratch/TMP_Megalodon_${expName}
 
 i=$SLURM_ARRAY_TASK_ID
 
-# Compute settings: 1 GPU and 30 CPU cores per run
+# Compute settings: 1 GPU and 8 CPU cores per run
 # Other useful option : --num-reads 5000 \ (for testing)
 
-megalodon ./final_fast5s_${expName}/${barcodesOfInterest[${i}]}/ --guppy-server-path ${GUPPY_DIR}/guppy_basecall_server \
+megalodon ${work_DIR}/output/final_multifast5s_${expName}/${barcodesOfInterest[${i}]}/ --guppy-server-path ${GUPPY_DIR}/guppy_basecall_server \
         --guppy-params "-d ./rerio/basecall_models/ --num_callers 5 --ipc_threads 6" \
         --guppy-config ${modelConfig}.cfg \
         --outputs ${outputs[@]} \
@@ -45,10 +45,11 @@ megalodon ./final_fast5s_${expName}/${barcodesOfInterest[${i}]}/ --guppy-server-
         --mod-aggregate-method binary_threshold \
         --mod-binary-threshold ${k} \
         --mod-output-formats bedmethyl wiggle \
+        --reads-per-guppy-batch 40 \
         --sort-mappings \
         --mod-map-emulate-bisulfite \
         --mod-map-base-conv C T --mod-map-base-conv Z C \
-        --devices 0 --processes 30 
+        --devices 0 --processes 8
 
 cd ./megalodon_results_${barcodesOfInterest[${i}]}
 
