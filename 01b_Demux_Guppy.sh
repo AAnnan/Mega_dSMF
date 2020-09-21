@@ -98,4 +98,21 @@ elif [ "${two_pass}" = "no" ]; then
 	fi
 fi
 
+### Run pycoQC (or not)
+if [ "${two_pass}" = "yes" ] || [ "${i}" = "0" ]; then #if 2-pass or if 1 pass on specific array job
+	if [ "${qc}" = "yes" ]; then
+
+		#Create seq summary file from barcoded reads
+		Fast5_to_seq_summary --fast5_dir ./final_fast5s_${expName}/${barcodesOfInterest[${i}]} \
+		--threads 30 \
+		--seq_summary_fn ./sequencing_summary_${barcodesOfInterest[${i}]}.txt
+
+		#Perform pycoQC analysis
+		pycoQC -f ./sequencing_summary_${barcodesOfInterest[${i}]}.txt -o ./pycoQC_${barcodesOfInterest[${i}]}.html
+
+		cp ./pycoQC_${barcodesOfInterest[${i}]}.html ${work_DIR}/output/.
+	fi
+fi
+
+
 conda deactivate

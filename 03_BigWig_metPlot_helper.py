@@ -148,9 +148,9 @@ for cl in range(1,len(chrm_lens)):
 ##########################Build Methyl Plot#############################
 ########################################################################
 
-save_methyl_prob_plot(get_scores(f'./{lib}.HCG_1/per_read_modified_base_calls.db'),'CpG',lib,k)
+#save_methyl_prob_plot(get_scores(f'./{lib}.HCG_1/per_read_modified_base_calls.db'),'CpG',lib,k)
 
-save_methyl_prob_plot(get_scores(f'./{lib}.GCH_1/per_read_modified_base_calls.db'),'GpC',lib,k)
+#save_methyl_prob_plot(get_scores(f'./{lib}.GCH_1/per_read_modified_base_calls.db'),'GpC',lib,k)
 
 save_methyl_prob_plot(get_scores(f'./per_read_modified_base_calls.db'),'CpG_GpC',lib,k)
 	
