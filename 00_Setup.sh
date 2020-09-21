@@ -54,6 +54,9 @@ conda install -c bioconda ucsc-fetchchromsizes --yes
 #Install wigToBigWig
 conda install -c bioconda ucsc-wigtobigwig --yes
 
+#Install pycoQC
+conda install -c aleg -c conda-forge -c bioconda pycoqc=2.5.0.21 --yes
+
 #Install Samtools
 conda install -c bioconda samtools --yes
 
@@ -62,9 +65,6 @@ conda install tensorflow-gpu==1.14 --yes
 
 #Install Deepbinner 
 pip3 install git+https://github.com/rrwick/Deepbinner.git
-
-#Install pycoQC
-conda install -c aleg -c conda-forge -c bioconda pycoqc=2.5.0.21 --yes
 
 #Install Keras 2.3.1
 pip3 install Keras==2.3.1
