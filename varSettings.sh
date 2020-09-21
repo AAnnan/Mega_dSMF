@@ -17,6 +17,7 @@ rawFast5_DIR=/home/aannan/rawF5_test
 # Only use yes if you've used these barcoding kits: EXP-NBD103, EXP-NBD104 or very similar.
 two_pass=yes #or no
 
+
 ###############################
 ## MAY OR MAY NOT BE UPDATED ##
 ###############################
@@ -35,7 +36,11 @@ modelConfig=res_dna_r941_min_modbases-all-context_v001
 
 #Probability threshold above which the base of interest will be declared methylated, 
 #					   under which the base of interest will be declared canonical
-k=0.6
+k=0.7
+
+# Perform pycoQC quality control
+# Will output html files with QC information (1 per barcode)
+qc=yes #or no
 
 ###############
 ## MEGALODON ##
