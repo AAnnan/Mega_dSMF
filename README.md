@@ -1,5 +1,5 @@
 # Mega_dSMF
-Analysing nanopore sequencing of dSMF data with Megalodon
+Analysing nanopore sequencing of dSMF data with [ONT's Megalodon](https://github.com/nanoporetech/megalodon)
 
 ## Installation
 1) Log in the **GPU** node (IZBDelhi). This is important to make use of the faster scratch folder. Make sure that you have Conda installed with `conda --version`
