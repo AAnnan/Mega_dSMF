@@ -55,7 +55,7 @@ conda install -c bioconda ucsc-fetchchromsizes --yes
 conda install -c bioconda ucsc-wigtobigwig --yes
 
 #Install pycoQC
-conda install -c aleg pycoqc
+conda install -c aleg pycoqc --yes
 
 #Install Samtools
 conda install -c bioconda samtools --yes
