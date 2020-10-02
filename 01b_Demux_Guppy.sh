@@ -101,7 +101,7 @@ elif [ "${two_pass}" = "no" ]; then
 fi
 
 ### Run pycoQC (or not)
-if [ "${two_pass}" = "yes" ] || [ "${i}" = "0" ]; then #if 2-pass or if 1 pass on specific array job
+if [ "${two_pass}" = "yes" ] || [ "${i}" = 0 ]; then #if 2-pass or if 1 pass on specific array job
 	if [ "${qc}" = "yes" ]; then
 
 		#Create seq summary file from barcoded reads
