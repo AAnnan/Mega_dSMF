@@ -12,7 +12,7 @@ mkdir output
 
 ##Input Guppy's latest VERSION:
 
-read -p 'Input Newest Guppy version (ie: 4.0.15), check it here: community.nanoporetech.com/downloads/guppy/release_notes ' GUPPY_VERSION
+read -p 'Input Newest Guppy version (ie: 4.0.15), check it here: community.nanoporetech.com/downloads/guppy/release_notes :' GUPPY_VERSION
 
 if [[ ! $GUPPY_VERSION =~ ^[0-9,.]*$ ]]
 then
@@ -55,7 +55,7 @@ conda install -c bioconda ucsc-fetchchromsizes --yes
 conda install -c bioconda ucsc-wigtobigwig --yes
 
 #Install pycoQC
-conda install -c aleg -c conda-forge -c bioconda pycoqc=2.5.0.21 --yes
+conda install -c aleg pycoqc=2.5.0.23
 
 #Install Samtools
 conda install -c bioconda samtools --yes
@@ -80,9 +80,10 @@ echo "GUPPY_DIR="${SOFTWARE_DIR}/ont-guppy/bin >> ../varSettings.sh
 
 #Install Megalodon
 pip3 install Megalodon
-pip3 install ont_pyguppy_client_lib
+pip3 install ont_pyguppy_client_lib==$GUPPY_VERSION
 
 # Create and move to a temporary scratch folder
+mkdir -p /scratch/TMP_Megalodon_${expName}
 cd /scratch/TMP_Megalodon_${expName}
 
 ### Get Rerio's research model from GitHub (if it doesn't exist already)
