@@ -3,7 +3,7 @@
 ## Allocate resources
 #SBATCH --time=8-00:00:00
 #SBATCH --partition=gpu
-#SBATCH --array=0-1
+#SBATCH --array=0-24
 #SBATCH --mem=64G
 #SBATCH –-cpus-per-task=8
 
