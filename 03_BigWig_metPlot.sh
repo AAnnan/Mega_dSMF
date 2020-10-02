@@ -12,13 +12,16 @@
 #SBATCH --mail-user=ahrmad.annan@students.unibe.ch
 #SBATCH --mail-type=end,fail
 
-## #SBATCH --array parameter should be CHANGED according to NUMBER OF BARCODES:
-## array=0-(total number of barcodes-1)
-
 source ./varSettings.sh
 
-source ${CONDA_ACTIVATE} ${condaEnv}
 i=$SLURM_ARRAY_TASK_ID
+j=$SLURM_ARRAY_JOB_ID
+nb_arr=$SLURM_ARRAY_TASK_MAX
+let nb_job="${#barcodesOfInterest[@]}"
+
+if [ "${i}" = 0 ]; then scancel --quiet ${j}_[${nb_job}-${nb_arr}]; else sleep 1;fi 
+
+source ${CONDA_ACTIVATE} ${condaEnv}
 lib=${barcodesOfInterest[${i}]}
 
 # Move to scratch temp experiment folder

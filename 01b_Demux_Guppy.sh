@@ -4,7 +4,7 @@
 #SBATCH --time=2-00:00:00
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
-#SBATCH --array=0-1
+#SBATCH --array=0-24
 #SBATCH --mem=240G
 #SBATCH –-cpus-per-task=30
 
@@ -12,18 +12,20 @@
 #SBATCH --mail-type=end,fail
 #SBATCH --job-name="Guppy Demux"
 
-
-## #SBATCH --array parameter should be CHANGED according to NUMBER OF BARCODES:
-## array=0-(total number of barcodes-1)
-
 ## Script to perform demultiplexing with Guppy Barcoder
 ## Should be run in the same folder as varSettings.sh
 ## .bashrc should include location of conda activate script and export it as ${CONDA_ACTIVATE}
 
 source ./varSettings.sh
 
-source ${CONDA_ACTIVATE} ${condaEnv}
 i=$SLURM_ARRAY_TASK_ID
+j=$SLURM_ARRAY_JOB_ID
+nb_arr=$SLURM_ARRAY_TASK_MAX
+let nb_job="${#barcodesOfInterest[@]}"
+
+if [ "${i}" = 0 ]; then scancel --quiet ${j}_[${nb_job}-${nb_arr}]; else sleep 1;fi 
+
+source ${CONDA_ACTIVATE} ${condaEnv}
 
 cd /scratch/TMP_Megalodon_${expName}
 
