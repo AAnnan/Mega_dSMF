@@ -24,4 +24,5 @@ Running all scripts (in order) will output:
 
 ## Remarks
 - 2 sites (GC and CG) will be explored for 5mC through 3 non-overlapping motifs: HCG, GCH and GCG. You can change this directly in `02_Megalodon.sh` according to the information in `varSettings.sh`.
+- To keep the efficient arraying of SLURM jobs without needing to manually change the number of SLURM arrays in 3 scripts (`01b_Demux_Guppy.sh`, `02_Megalodon.sh` and `03_BigWig_metPlot.sh`), these 3 scripts will run on 24 (max. number of barcodes for non-bacterial samples) jobs by default, the jobs with no correct barcodes will terminate immediately with no output.
 
