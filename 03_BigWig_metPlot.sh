@@ -5,7 +5,7 @@
 #SBATCH --partition=gpu
 #SBATCH --array=0-24
 #SBATCH --mem=64G
-#SBATCH –-cpus-per-task=8
+#SBATCH –-cpus-per-task=4
 
 ## job metadata
 #SBATCH --job-name="Build_BigWig"
