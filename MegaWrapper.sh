@@ -20,6 +20,7 @@ elif [ "${two_pass}" = "no" ]; then
 else
 	echo "Invalid two_pass variable in varSettings.sh. Must be yes or no."
     exit
+fi
 
 #################
 # echo settings #
