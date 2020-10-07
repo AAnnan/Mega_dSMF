@@ -26,19 +26,21 @@ else
 #################
 echo "Mega_dSMF pipeline started..."
 echo -e "Experiment Name:" '\t' $expName
+echo -e "Barcoding Kit:" '\t' $bc_kit
 echo -e "Barcodes:" '\t' $barcodesOfInterest
-echo -e "Model used:" '\t' $modelConfig
-echo -e "Perform 2-pass demultiplexing:" '\t' $two_pass
-echo -e "Perform pycoQC quality control:" '\t' $qc
-echo -e "Megalodon Outputs:" '\t' $outputs '\n'
+echo -e "Perform 2-pass barcoding:" '\t' $two_pass
+echo -e "Perform pycoQC barcode QC:" '\t' $qc
+echo -e "Megalodon Outputs:" '\t' $outputs 
+echo -e "Model chosen:" '\t' $modelConfig
+echo -e "Methylation threshold chosen:" '\t' K=$k '\n'
 
 #################
 # echo steps #
 #################
 echo "These scripts will be run in order:"
 echo ${steps[@]}
-echo "script2 will run only if script1 completed with an exit status of 0"
-echo "Check the status regularly. The pipeline speed is about 20h/1M reads"
+echo "script2 will run only if script1 completed with an exit status of 0 (OK)"
+echo "Check the run regularly. The pipeline speed is about 20h/1M reads"
 
 #############
 # Mega_dSMF #
