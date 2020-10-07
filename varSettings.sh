@@ -15,7 +15,7 @@ rawFast5_DIR=/home/aannan/rawF5_test
 
 # Perform 2-pass demultiplexing (1st pass: DeepBinner, 2nd pass: Guppy Barcoder)
 # Only use yes if you've used these barcoding kits: EXP-NBD103, EXP-NBD104 or very similar.
-two_pass=yes #or no
+two_pass=yes #yes or no
 
 
 ###############################
@@ -40,7 +40,7 @@ k=0.7
 
 # Perform pycoQC quality control
 # Will output html files with QC information (1 per barcode)
-qc=yes #or no
+qc=yes #yes or no
 
 ###############
 ## MEGALODON ##

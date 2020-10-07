@@ -5,8 +5,8 @@
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --array=0-24
-#SBATCH --mem=240G
-#SBATCH –-cpus-per-task=30
+#SBATCH --mem=150G
+#SBATCH –-cpus-per-task=16
 
 #SBATCH --mail-user=ahrmad.annan@students.unibe.ch
 #SBATCH --mail-type=end,fail
@@ -51,7 +51,7 @@ if [ "${two_pass}" = "yes" ]; then
 	### Perform single to multi fast5 conversion (for storage, as to not have millions of small files)
 	single_to_multi_fast5 -i ./final_fast5s_${expName}/${barcodesOfInterest[${i}]}/ \
 	    -s ${work_DIR}/output/final_multifast5s_${expName}/${barcodesOfInterest[${i}]}/ \
-	    --threads 30 \
+	    --threads 16 \
 	    --filename_base ${expName}_${barcodesOfInterest[${i}]} \
 	    --batch_size 20000
 
@@ -66,7 +66,7 @@ elif [ "${two_pass}" = "no" ]; then
 		if [ "${singl_or_multi}" -gt 1 ]; then
 			multi_to_single_fast5 --input_path ${rawFast5_DIR} \
 				--save_path ./single_rawFast5 \
-				--threads 30 \
+				--threads 16 \
 				--recursive
 
 			rawFast5_DIR=./single_rawFast5
@@ -93,7 +93,7 @@ elif [ "${two_pass}" = "no" ]; then
 			### Perform single to multi fast5 conversion (for storage, as to not have millions of small files)
 			single_to_multi_fast5 -i ./final_fast5s_${expName}/${bc}/ \
 			    -s ${work_DIR}/output/final_multifast5s_${expName}/${bc}/ \
-			    --threads 30 \
+			    --threads 16 \
 			    --filename_base ${expName}_${bc} \
 			    --batch_size 20000
 		done
@@ -106,7 +106,7 @@ if [ "${two_pass}" = "yes" ] || [ "${i}" = 0 ]; then #if 2-pass or if 1 pass on 
 
 		#Create seq summary file from barcoded reads
 		Fast5_to_seq_summary --fast5_dir ./final_fast5s_${expName}/${barcodesOfInterest[${i}]} \
-		--threads 30 \
+		--threads 16 \
 		--seq_summary_fn ./sequencing_summary_${barcodesOfInterest[${i}]}.txt
 
 		#Perform pycoQC analysis
