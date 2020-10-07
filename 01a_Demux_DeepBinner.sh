@@ -5,8 +5,8 @@
 #SBATCH --partition=gpu
 #SBATCH --gres=gpu:1
 #SBATCH --array=1-2
-#SBATCH --mem=240G
-#SBATCH –-cpus-per-task=24
+#SBATCH --mem=96G
+#SBATCH –-cpus-per-task=8
 
 #SBATCH --mail-user=ahrmad.annan@students.unibe.ch
 #SBATCH --mail-type=end,fail
