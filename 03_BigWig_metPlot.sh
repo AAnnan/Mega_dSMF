@@ -33,23 +33,30 @@ python ${work_DIR}/03_BigWig_metPlot_helper.py ${lib} ${k}
 # Build Wigs
 chrom=(chrI chrII chrIII chrIV chrM chrV chrX)
 
+echo Formatting WIGS...
 for j in $(seq 7); do
+	echo Formatting Chrom ${j}
 	echo variableStep chrom=${chrom[${j}-1]} span=1 >> ${lib}.wig
 	cat ${j}.txt >> ${lib}.wig
 	echo variableStep chrom=${chrom[${j}-1]} span=1 >> ${lib}_w10.wig
 	cat ${j}_w10.txt >> ${lib}_w10.wig
 	rm ${j}.txt ${j}_w10.txt
 done
+echo Formatting WIGS Done.
+echo Building BIGWIGs...
 
 # Build BigWigs
 fetchChromSizes ce11 > ce11.chrom.sizes
 wigToBigWig ${lib}.wig ce11.chrom.sizes ${lib}.bw
 wigToBigWig ${lib}_w10.wig ce11.chrom.sizes ${lib}_w10.bw
+echo Building BIGWIGs Done.
 
+echo Remove intermediary files...
 # Remove intermediary files
 rm ${lib}.wig ${lib}_w10.wig ce11.chrom.sizes
 
-# Copy files to work folder
+Remove Copy files to output folder
+# Copy files to output folder
 cp *.bw *.pdf ${work_DIR}/output/megalodon_results_${barcodesOfInterest[${i}]}/.
 
 conda deactivate

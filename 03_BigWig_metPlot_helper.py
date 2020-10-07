@@ -105,8 +105,9 @@ def main():
 	##Retrieve the whole score list (pos,score) from the DBs
 	for motif in motifs:
 		for strand in strands:
+			print(f'Retrieving the score list from {lib}: {motif}...')
 			score_list = score_list + get_score_list_per_motif(f'./{lib}.{motif}_1/per_read_modified_base_calls.db',strand,motif)
-
+	print(f'Score List Built.')
 	#Store in Numpy array
 	log_sc = np.array(score_list,dtype=np.float64)
 	#Transform the scores to get 1-fraction methylated
@@ -119,8 +120,10 @@ def main():
 	#Cumulative length
 	cumsum_chrm_lens = np.cumsum(chrm_lens)
 
+	print(f'Building chromosome specific WIG')
 	#Retrieve data for each chromosome
 	for cl in range(1,len(chrm_lens)):
+		print(f'Chrom {cl}...')
 
 		#Select chromosome-specific scores
 		unlog_sc_perChr = unlog_sc[ (unlog_sc[:,0]>cumsum_chrm_lens[cl-1]) & (unlog_sc[:,0]<=cumsum_chrm_lens[cl]) ]
@@ -133,12 +136,15 @@ def main():
 		#Output to txt
 		unlog_sc_unq.to_csv(path_or_buf=f'{cl}.txt',sep=' ', header=False)
 		unlog_sc_unq_rwa.to_csv(path_or_buf=f'{cl}_w10.txt',sep=' ', header=False)
+	print(f'All WIGs done.')
 
 	########################################################################
 	##########################Build Methyl Plot#############################
 	########################################################################
 
+	print(f'Building Methylation Distribution Plot...')
 	save_methyl_prob_plot(np.exp(log_sc),'CpG_GpC',lib,k)
+	print(f'Plot built.')
 
 if __name__ == "__main__":
 	main()
