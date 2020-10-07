@@ -26,13 +26,13 @@ fi
 # echo settings #
 #################
 echo "Mega_dSMF pipeline started..."
-echo -e "Experiment Name:" '\t' $expName
-echo -e "Barcoding Kit:" '\t' $bc_kit
-echo -e "Barcodes:" '\t' $barcodesOfInterest
+echo -e "Experiment Name:" '\t\t' $expName
+echo -e "Barcoding Kit:" '\t\t\t' $bc_kit
+echo -e "Barcodes:" '\t\t\t' ${barcodesOfInterest[@]}
 echo -e "Perform 2-pass barcoding:" '\t' $two_pass
 echo -e "Perform pycoQC barcode QC:" '\t' $qc
-echo -e "Megalodon Outputs:" '\t' $outputs 
-echo -e "Model chosen:" '\t' $modelConfig
+echo -e "Megalodon Outputs:" '\t\t' ${outputs[@]}
+echo -e "Model chosen:" '\t\t\t' $modelConfig
 echo -e "Methylation threshold chosen:" '\t' K=$k '\n'
 
 #################
