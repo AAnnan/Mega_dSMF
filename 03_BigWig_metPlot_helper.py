@@ -143,7 +143,7 @@ def main():
 	########################################################################
 
 	print(f'Building Methylation Distribution Plot...')
-	save_methyl_prob_plot(np.exp(log_sc),'CpG_GpC',lib,k)
+	save_methyl_prob_plot(np.exp(log_sc[:,1]),'CpG_GpC',lib,k)
 	print(f'Plot built.')
 
 if __name__ == "__main__":
