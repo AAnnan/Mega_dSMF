@@ -12,7 +12,7 @@ mkdir output
 
 ##Input Guppy's latest VERSION:
 
-read -p 'Input Newest Guppy version (ie: 4.0.15), check it here: community.nanoporetech.com/downloads/guppy/release_notes :' GUPPY_VERSION
+read -p 'Input Newest Guppy version (ie: 4.2.2), check it here: community.nanoporetech.com/downloads/guppy/release_notes :' GUPPY_VERSION
 
 if [[ ! $GUPPY_VERSION =~ ^[0-9,.]*$ ]]
 then
