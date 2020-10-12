@@ -63,6 +63,9 @@ conda install -c bioconda samtools --yes
 #Install tensorflow-gpu 1.14
 conda install tensorflow-gpu==1.14 --yes
 
+#Install pip within conda
+conda install pip --yes
+
 #Install Deepbinner 
 pip3 install git+https://github.com/rrwick/Deepbinner.git
 
