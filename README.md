@@ -11,7 +11,7 @@ Analysing nanopore sequencing of dSMF data with [ONT's Megalodon](https://github
 Launch the scripts **GPU** node (IZBDelhi) with `sbatch` in numerical order. Alternatively, after installing the Mega_dSMF conda environment with `bash 00_Setup.sh`, you can launch the whole pipeline with `bash Mega_wrapper.sh`.
 
 ## /!\ One or Two-pass Demultiplexing
-To demultiplex your raw reads with `01a_Demux_DeepBinner.sh`, you must have used one of these sequencing/barcoding kits: EXP-NBD103, EXP-NBD104 or very similar. If you have used a different kit, skip `01a_Demux_DeepBinner.sh` and demultiplex directly with `01b_Demux_Guppy.sh`. You will have to update the `two_pass` variable in `varSettings.sh` accordingly.
+To demultiplex your raw reads with `01a_Demux_DeepBinner.sh`, you must have used one of these sequencing/barcoding kits: EXP-NBD103, EXP-NBD104 or very similar. If you have used a different kit, skip `01a_Demux_DeepBinner.sh` and demultiplex only with Guppy by setting the variable `two_pass` to `no` in `varSettings.sh`.
 
 ## Output
 Outputs will be in a folder named `output` in the Mega_dSMF folder.
