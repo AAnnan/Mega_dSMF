@@ -57,6 +57,6 @@ rm ${lib}.wig ${lib}_w10.wig ce11.chrom.sizes
 
 #Remove Copy files to output folder
 # Copy files to output folder
-cp *.bw *.pdf ${work_DIR}/output/megalodon_results_${barcodesOfInterest[${i}]}/.
+cp *.bw *.pdf ${work_DIR}/output/.
 
 conda deactivate
