@@ -55,7 +55,7 @@ echo Remove intermediary files...
 # Remove intermediary files
 rm ${lib}.wig ${lib}_w10.wig ce11.chrom.sizes
 
-Remove Copy files to output folder
+#Remove Copy files to output folder
 # Copy files to output folder
 cp *.bw *.pdf ${work_DIR}/output/megalodon_results_${barcodesOfInterest[${i}]}/.
 
