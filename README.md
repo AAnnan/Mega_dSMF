@@ -20,7 +20,7 @@ Running all scripts (in order) will output:
 1) 2-pass (DeepBinner + Guppy Barcoder) or 1-pass (Guppy Barcoder) demultiplexed, basecalled, multifast5s. 
 2) All Megalodon outputs listed [here](https://github.com/nanoporetech/megalodon#outputs) and in `Megalodon_Output_Notes.txt` and selected in `varSettings.sh`
 3) 2 BigWig files per barcode of **1-Methylated Fraction** along the genome (raw and smoothed with a 10-bp rolling window).
-4) 1 plot per barcode of the probability distribution of methylation per C site, within a barcode.
+4) 3 plots per barcode of the probability distribution of methylation per motif (dSMF, CpG & GpC).
 
 ## Remarks
 - 2 sites (GC and CG) will be explored for 5mC through 3 non-overlapping motifs: HCG, GCH and GCG. You can change this directly in `02_Megalodon.sh` according to the information in `varSettings.sh`.
