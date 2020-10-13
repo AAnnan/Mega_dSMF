@@ -58,6 +58,24 @@ def get_score_list_per_motif(per_read_db_file,strand,motif):
 
 	return score_list
 
+def get_scores(per_read_db_file):
+	"""
+	Input:  per-read db location (str)
+	Ouput:  List with scores only, unexp
+	"""
+	#Connect to the DB
+	conn = sqlite3.connect(per_read_db_file)
+	c = conn.cursor()
+
+	#Query the database for scores
+	c.execute(f"SELECT score FROM data")
+	score_l = c.fetchall()
+
+	#Close the connection
+	conn.close()
+
+	return np.exp(score_l, dtype=np.float64)
+
 def save_methyl_prob_plot(score_list,motif,lib,k):
 	"""
 	Input:  score_list list or numpy array containing unlogged scores (0-1)
@@ -87,7 +105,7 @@ def save_methyl_prob_plot(score_list,motif,lib,k):
 	plt.xlabel('Methylation probability')
 	plt.title(f'{lib} dSMF')
 	
-	plt.savefig(f'{lib}_{k}_methyl_distribution.pdf')
+	plt.savefig(f'{lib}_{k}_{motif}_methyl_distribution.pdf')
 
 	plt.close()
 
@@ -105,9 +123,9 @@ def main():
 	##Retrieve the whole score list (pos,score) from the DBs
 	for motif in motifs:
 		for strand in strands:
-			print(f'Retrieving the score list from {lib}: {motif}...')
+			print(f'Retrieving scores from {lib}: {motif} strand {strand}...')
 			score_list = score_list + get_score_list_per_motif(f'./{lib}.{motif}_1/per_read_modified_base_calls.db',strand,motif)
-	print(f'Score List Built.')
+	print(f'Building Score List...')
 	#Store in Numpy array
 	log_sc = np.array(score_list,dtype=np.float64)
 	#Transform the scores to get 1-fraction methylated
@@ -120,7 +138,7 @@ def main():
 	#Cumulative length
 	cumsum_chrm_lens = np.cumsum(chrm_lens)
 
-	print(f'Building chromosome specific WIG')
+	print(f'Building chromosome specific WIG...')
 	#Retrieve data for each chromosome
 	for cl in range(1,len(chrm_lens)):
 		print(f'Chrom {cl}...')
@@ -139,12 +157,17 @@ def main():
 	print(f'All WIGs done.')
 
 	########################################################################
-	##########################Build Methyl Plot#############################
+	#########################Build Methyl Plots#############################
 	########################################################################
 
-	print(f'Building Methylation Distribution Plot...')
+	print(f'Building Methylation Distribution Plots...')
+	print(f'CpG_GpC...')
 	save_methyl_prob_plot(np.exp(log_sc[:,1]),'CpG_GpC',lib,k)
-	print(f'Plot built.')
+	print(f'CpG...')
+	save_methyl_prob_plot(get_scores(f'./{lib}.HCG_1/per_read_modified_base_calls.db'),'CpG',lib,k)
+	print(f'GpC...')
+	save_methyl_prob_plot(get_scores(f'./{lib}.GCH_1/per_read_modified_base_calls.db'),'GpC',lib,k)
+	print(f'Plots built.')
 
 if __name__ == "__main__":
 	main()
