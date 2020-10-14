@@ -20,7 +20,6 @@ from scipy.ndimage.filters import uniform_filter1d
 ### Global Variables
 lib = sys.argv[1] #${barcodesOfInterest[${i}]}
 k = sys.argv[2]
-motifs = ['HCG','GCH','GCG']
 
 #Length of CE chromosomes in order (chrI chrII chrIII chrIV chrM chrV chrX)
 chrm_lens = [0,15072434,15279421,13783801,17493829,13794,20924180,17718942]
@@ -76,16 +75,16 @@ def get_scores(per_read_db_file):
 
 	return np.exp(score_l, dtype=np.float64)
 
-def save_methyl_prob_plot(score_list,motif,lib,k):
+def save_methyl_prob_plot(scores,motif,lib,k):
 	"""
-	Input:  score_list list or numpy array containing unlogged scores (0-1)
+	Input:  scores list or numpy array containing unlogged scores (0-1)
 			lib name of the library for the plot title (str)
 			motif motif searched corresponding to the score list (str)
 			k threshold chosen (str or float)
 	Ouput:  Pdf plot of the site counts per methylation probability
 	"""
 
-	score_count = np.array(np.unique(score_list, return_counts=True)).T
+	score_count = np.array(np.unique(scores, return_counts=True)).T
 
 	xvals = np.linspace(0, 1, 50)
 	scores = np.interp(xvals, score_count[:,0], score_count[:,1])
@@ -111,7 +110,7 @@ def save_methyl_prob_plot(score_list,motif,lib,k):
 
 	return 0
 	
-def save_agg_freq_plot(score_list_bin,lib,k):
+def save_agg_freq_plot(score_list_pos,motif,lib,k):
 	"""
 	Input:  score_list binarized with threshold all values above threshold are 1s, under 0s
 			lib name of the library for the plot title (str)
@@ -119,8 +118,13 @@ def save_agg_freq_plot(score_list_bin,lib,k):
 	Ouput:  Pdf plot of the position (not site!) counts freq per methylation probability
 	"""
 
-	unqa,ID,counts = np.unique(score_list_bin[:,0],return_inverse=True,return_counts=True)
-	out = np.column_stack(( unqa , np.bincount(ID,score_list_bin[:,1])/counts ))
+	score_list_pos[:,1] = 1 - np.exp(score_list_pos[:,1])
+
+	#Apply threshold, all values above threshold will be 1s, under will be 0s
+	score_list_pos[:,1] = score_list_pos[:,1] > (1 - float(k))
+
+	unqa,ID,counts = np.unique(score_list_pos[:,0],return_inverse=True,return_counts=True)
+	out = np.column_stack(( unqa , np.bincount(ID,score_list_pos[:,1])/counts ))
 
 	plt.hist(out[:,1], bins=40, density=True)
 
@@ -129,7 +133,7 @@ def save_agg_freq_plot(score_list_bin,lib,k):
 	plt.title(f'{lib} dSMF')
 
 	plt.tight_layout()
-	plt.savefig(f'{lib}_{k}_agg_freq.pdf')
+	plt.savefig(f'{lib}_{k}_{motif}_agg_freq.pdf')
 	plt.close()
 
 	return 0
@@ -137,19 +141,37 @@ def save_agg_freq_plot(score_list_bin,lib,k):
 def main():
 
 	########################################################################
-	##############################Build BigWig##############################
+	###########################Build Score Lists############################
 	########################################################################
+	print(f'Querying Single Molecule Database...')
 
+	motifs = ['HCG','GCH','GCG']
 	strands = [0, 1]
 	score_list = []
-	##Retrieve the whole score list (pos,score) from the DBs
+
 	for motif in motifs:
 		for strand in strands:
 			print(f'Retrieving scores from {lib}: {motif} strand {strand}...')
-			score_list = score_list + get_score_list_per_motif(f'./{lib}.{motif}_1/per_read_modified_base_calls.db',strand,motif)
-	print(f'Building Score List...')
-	#Store in Numpy array
-	log_sc = np.array(score_list,dtype=np.float64)
+			score_list.append(np.array(get_score_list_per_motif(f'./{lib}.{motif}_1/per_read_modified_base_calls.db',strand,motif),dtype=np.float64))
+	
+	print(f'Building Score Lists...')
+
+	#Motif-spe scores
+	score_list_HCG = np.vstack((score_list[0],score_list[1]))
+	score_list_GCH = np.vstack((score_list[2],score_list[3]))
+	score_list_GCG = np.vstack((score_list[4],score_list[5]))
+
+	#All scores
+	log_sc = np.vstack((score_list_HCG,score_list_GCH,score_list_GCG))
+
+	########################################################################
+	##############################Build BigWig##############################
+	########################################################################
+	print(f'Building chromosome specific WIG...')
+	
+	#Cumulative length
+	cumsum_chrm_lens = np.cumsum(chrm_lens)
+
 	#Transform the scores to get 1-fraction methylated
 	unlog_sc = np.copy(log_sc)
 	unlog_sc[:,1] = 1 - np.exp(unlog_sc[:,1])
@@ -157,10 +179,6 @@ def main():
 	#Apply threshold, all values above threshold will be 1s, under will be 0s
 	unlog_sc[:,1] = unlog_sc[:,1] > (1 - float(k))
 
-	#Cumulative length
-	cumsum_chrm_lens = np.cumsum(chrm_lens)
-
-	print(f'Building chromosome specific WIG...')
 	#Retrieve data for each chromosome
 	for cl in range(1,len(chrm_lens)):
 		print(f'Chrom {cl}...')
@@ -176,22 +194,28 @@ def main():
 		#Output to txt
 		unlog_sc_unq.to_csv(path_or_buf=f'{cl}.txt',sep=' ', header=False)
 		unlog_sc_unq_rwa.to_csv(path_or_buf=f'{cl}_w10.txt',sep=' ', header=False)
-	print(f'All WIGs done.\n')
 
+	print(f'All WIGs done.\n')
 	########################################################################
 	#########################Build Methyl Plots#############################
 	########################################################################
-
 	print(f'Building Methylation Distribution Plots...')
-	print(f'CpG_GpC...')
+	
+	print(f'dSMF...')
 	save_methyl_prob_plot(np.exp(log_sc[:,1]),'CpG_GpC',lib,k)
 	print(f'CpG...')
-	save_methyl_prob_plot(get_scores(f'./{lib}.HCG_1/per_read_modified_base_calls.db'),'CpG',lib,k)
+	save_methyl_prob_plot(np.exp(score_list_HCG[:,1]),'CpG',lib,k)
 	print(f'GpC...')
-	save_methyl_prob_plot(get_scores(f'./{lib}.GCH_1/per_read_modified_base_calls.db'),'GpC',lib,k)
+	save_methyl_prob_plot(np.exp(score_list_GCH[:,1]),'GpC',lib,k)
 
 	print(f'Building Aggregate Methylation Frequency Plot...')
-	save_agg_freq_plot(unlog_sc,lib,k)
+	print(f'dSMF...')
+	save_agg_freq_plot(log_sc,'CpG_GpC',lib,k)
+	print(f'CpG...')
+	save_agg_freq_plot(score_list_HCG,'CpG',lib,k)
+	print(f'GpC...')
+	save_agg_freq_plot(score_list_GCH,'GpC',lib,k)
+
 	print(f'Plots built.')
 
 if __name__ == "__main__":
