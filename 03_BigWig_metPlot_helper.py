@@ -111,6 +111,28 @@ def save_methyl_prob_plot(score_list,motif,lib,k):
 
 	return 0
 	
+def save_agg_freq_plot(score_list_bin,lib,k):
+	"""
+	Input:  score_list binarized with threshold all values above threshold are 1s, under 0s
+			lib name of the library for the plot title (str)
+			k threshold chosen (str or float)
+	Ouput:  Pdf plot of the position (not site!) counts freq per methylation probability
+	"""
+
+	unqa,ID,counts = np.unique(score_list_bin[:,0],return_inverse=True,return_counts=True)
+	out = np.column_stack(( unqa , np.bincount(ID,score_list_bin[:,1])/counts ))
+
+	plt.hist(out[:,1], bins=40, density=True)
+
+	plt.ylabel(f'Frequency (%)')
+	plt.xlabel('Methylated/Coverage')
+	plt.title(f'{lib} dSMF')
+
+	plt.tight_layout()
+	plt.savefig(f'{lib}_{k}_agg_freq.pdf')
+	plt.close()
+
+	return 0
 
 def main():
 
@@ -154,7 +176,7 @@ def main():
 		#Output to txt
 		unlog_sc_unq.to_csv(path_or_buf=f'{cl}.txt',sep=' ', header=False)
 		unlog_sc_unq_rwa.to_csv(path_or_buf=f'{cl}_w10.txt',sep=' ', header=False)
-	print(f'All WIGs done.')
+	print(f'All WIGs done.\n')
 
 	########################################################################
 	#########################Build Methyl Plots#############################
@@ -167,6 +189,9 @@ def main():
 	save_methyl_prob_plot(get_scores(f'./{lib}.HCG_1/per_read_modified_base_calls.db'),'CpG',lib,k)
 	print(f'GpC...')
 	save_methyl_prob_plot(get_scores(f'./{lib}.GCH_1/per_read_modified_base_calls.db'),'GpC',lib,k)
+
+	print(f'Building Aggregate Methylation Frequency Plot...')
+	save_agg_freq_plot(unlog_sc,lib,k)
 	print(f'Plots built.')
 
 if __name__ == "__main__":
