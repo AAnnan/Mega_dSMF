@@ -69,8 +69,8 @@ pip3 install git+https://github.com/rrwick/Deepbinner.git
 #Install Keras 2.3.1
 pip3 install Keras==2.3.1
 
-#Install ont_pyguppy_client_lib
-pip3 install ont_pyguppy_client_lib
+#Install ont fast5 api
+pip3 install ont-fast5-api
 
 #Install Guppy
 wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_${GUPPY_VERSION}_linux64.tar.gz
