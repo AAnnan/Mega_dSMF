@@ -93,6 +93,8 @@ then
     git clone https://github.com/nanoporetech/rerio
 	python rerio/download_model.py rerio/basecall_models/${modelConfig}
 fi
+
+source ${work_DIR}/varSettings.sh
 # Copy Guppy's barcoding models into Rerio's folder
 cp ${GUPPY_DIR}/../data/barcoding/* ./rerio/basecall_models/barcoding/
 
