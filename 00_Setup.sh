@@ -12,7 +12,7 @@ mkdir output
 
 ##Input Guppy's latest VERSION:
 
-read -p 'Input Guppy version (ie: 4.0.15), check it here: community.nanoporetech.com/downloads/guppy/release_notes :' GUPPY_VERSION
+read -p 'Input Guppy version (ie: 5.0.11), check it here: community.nanoporetech.com/downloads/guppy/release_notes :' GUPPY_VERSION
 
 if [[ ! $GUPPY_VERSION =~ ^[0-9,.]*$ ]]
 then
@@ -69,8 +69,8 @@ pip3 install git+https://github.com/rrwick/Deepbinner.git
 #Install Keras 2.3.1
 pip3 install Keras==2.3.1
 
-#Install ont fast5 api
-pip3 install ont-fast5-api
+#Install ont_pyguppy_client_lib
+pip3 install ont_pyguppy_client_lib
 
 #Install Guppy
 wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy_${GUPPY_VERSION}_linux64.tar.gz
