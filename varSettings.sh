@@ -32,7 +32,7 @@ bc_kit=EXP-NBD104
 genomeFile=/mnt/imaging.data/pmeister/ce11/genome.fa
 
 # Name of Rerio's config model to use
-modelConfig=res_dna_r941_min_modbases-all-context_v001
+modelConfig=res_dna_r941_min_modbases_5mC_v001
 
 #Probability threshold above which the base of interest will be declared methylated, 
 #					   under which the base of interest will be declared canonical
