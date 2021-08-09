@@ -65,5 +65,5 @@ fi
 step3=$(sbatch --dependency=afterok:$step2 02_Megalodon.sh)
 step3="${step3//[^0-9]/}"
 
-### ANALYSIS
-step4=$(sbatch --dependency=afterok:$step3 03_BigWig_metPlot.sh)
+### ANALYSIS (afterany because megalodon doesn't seem to exit properly)
+step4=$(sbatch --dependency=afterany:$step3 03_BigWig_metPlot.sh)
