@@ -1,5 +1,5 @@
 # Mega_dSMF
-Analysing nanopore sequencing of dSMF data with [ONT's Megalodon](https://github.com/nanoporetech/megalodon)
+Analyse nanopore sequencing of dSMF data with [ONT's Megalodon](https://github.com/nanoporetech/megalodon).
 
 ## Installation
 1) Log on the **GPU** node (IZBDelhi). This is important to make use of the faster scratch folder. Make sure that you have Conda installed with `conda --version`
@@ -10,16 +10,16 @@ Analysing nanopore sequencing of dSMF data with [ONT's Megalodon](https://github
 ## Usage
 Launch the scripts **GPU** node (IZBDelhi) with `sbatch` in numerical order. Alternatively, you can launch the whole pipeline in one go with `bash MegaWrapper.sh`.
 
-## /!\ One or Two-pass Demultiplexing
+## [deprecated, deepbinner won't be used] One or Two-pass Demultiplexing
 To demultiplex your raw reads with `01a_Demux_DeepBinner.sh`, you must have used one of these sequencing/barcoding kits: EXP-NBD103, EXP-NBD104 or very similar. If you have used a different kit, skip `01a_Demux_DeepBinner.sh` and demultiplex only with Guppy by setting the variable `two_pass` to `no` in `varSettings.sh`.
 
 ## Output
 Outputs will be in a folder named `output` in the Mega_dSMF folder.
 
 Running all scripts (in order) will output:
-1) 2-pass (DeepBinner + Guppy Barcoder) or 1-pass (Guppy Barcoder) demultiplexed, basecalled, multifast5s. 
+1) Demultiplexed, basecalled, multifast5s.
 2) All Megalodon outputs listed [here](https://github.com/nanoporetech/megalodon#outputs) and in `Megalodon_Output_Notes.txt` and selected in `varSettings.sh`
-3) 2 BigWig files per barcode of **1-Methylated Fraction** along the genome (raw and smoothed with a 10-bp rolling window).
+3) 2 BigWig files per barcode of **1-Methylated Fraction** along the genome (raw and averaged with a 10-bp rolling window).
 4) 3 plots per barcode of the probability distribution of methylation per motif (dSMF, CpG & GpC).
 
 ## Remarks
