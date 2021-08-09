@@ -41,14 +41,14 @@ megalodon ${work_DIR}/output/final_multifast5s_${expName}/${barcodesOfInterest[$
         --outputs ${outputs[@]} \
         --output-directory ./megalodon_results_${barcodesOfInterest[${i}]}/ \
         --reference $genomeFile \
-        --mod-motif Z GCG 1 --mod-motif Z HCG 1 --mod-motif Z GCH 1 \
+        --mod-motif m GCG 1 --mod-motif m HCG 1 --mod-motif m GCH 1 \
         --write-mods-text \
         --mod-aggregate-method binary_threshold \
         --mod-binary-threshold ${k} \
         --mod-output-formats bedmethyl wiggle \
         --sort-mappings \
         --mod-map-emulate-bisulfite \
-        --mod-map-base-conv C T --mod-map-base-conv Z C \
+        --mod-map-base-conv C T --mod-map-base-conv m C \
         --devices 0 --processes 8
 
 cd ./megalodon_results_${barcodesOfInterest[${i}]}
