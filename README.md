@@ -10,7 +10,7 @@ Analyse nanopore sequencing of dSMF data with [ONT's Megalodon](https://github.c
 ## Usage
 Launch the scripts **GPU** node (IZBDelhi) with `sbatch` in numerical order. Alternatively, you can launch the whole pipeline in one go with `bash MegaWrapper.sh`.
 
-## [deprecated, deepbinner won't be used] One or Two-pass Demultiplexing
+## One or Two-pass Demultiplexing \[[deepbinner is deprecated](https://github.com/rrwick/Deepbinner#2021-update), two_pass will be set to "no" by default] 
 To demultiplex your raw reads with `01a_Demux_DeepBinner.sh`, you must have used one of these sequencing/barcoding kits: EXP-NBD103, EXP-NBD104 or very similar. If you have used a different kit, skip `01a_Demux_DeepBinner.sh` and demultiplex only with Guppy by setting the variable `two_pass` to `no` in `varSettings.sh`.
 
 ## Output
