@@ -46,7 +46,6 @@ megalodon ${work_DIR}/output/final_multifast5s_${expName}/${barcodesOfInterest[$
         --mod-aggregate-method binary_threshold \
         --mod-binary-threshold ${k} \
         --mod-output-formats bedmethyl wiggle \
-        --reads-per-guppy-batch 40 \
         --sort-mappings \
         --mod-map-emulate-bisulfite \
         --mod-map-base-conv C T --mod-map-base-conv Z C \
