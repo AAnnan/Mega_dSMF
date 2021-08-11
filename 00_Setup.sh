@@ -42,7 +42,7 @@ fi
 echo "export CONDA_ACTIVATE=${CONDA_PACKAGE%conda}activate" >> ~/.bashrc
 
 #Create Conda env
-conda create --name ${condaEnv} python=3.7 --yes
+conda create --name ${condaEnv} --yes
 
 #Activate conda env
 source ~/.bashrc
@@ -54,20 +54,8 @@ conda install -c bioconda ucsc-fetchchromsizes --yes
 #Install wigToBigWig
 conda install -c bioconda ucsc-wigtobigwig --yes
 
-#Install pycoQC
-conda install -c aleg pycoqc --yes
-
 #Install Samtools
 conda install -c bioconda samtools --yes
-
-#Install tensorflow-gpu 1.14
-conda install tensorflow-gpu==1.14 --yes
-
-#Install Deepbinner 
-pip3 install git+https://github.com/rrwick/Deepbinner.git
-
-#Install Keras 2.3.1
-pip3 install Keras==2.3.1
 
 #Install ont fast5 api
 pip3 install ont-fast5-api
@@ -98,31 +86,5 @@ source ${work_DIR}/varSettings.sh
 # Copy Guppy's barcoding models into Rerio's folder
 cp ${GUPPY_DIR}/../data/barcoding/* ./rerio/basecall_models/barcoding/
 
-if [ "${two_pass}" = "yes" ]; then
-	echo "Preparation of raw Fast5s before 2-pass demultiplexing"
-	# Copy the raw fast5s to the temporary scratch folder
-	mkdir -p /scratch/TMP_Megalodon_${expName}/rawFast5
-	cp -r ${rawFast5_DIR} ./rawFast5
-
-	#Move fast5s from children folders to the parent folder
-	find ./rawFast5 -type f -name "*.fast5" | xargs mv -t ./rawFast5
-
-	#Create a txt file containing the absolute filename of all raw fast5s
-	find ./rawFast5 -type f -name "*.fast5" > rawFast5s_list.txt
-
-	#Get total number of fast5s and half it
-	tot_fast5s=$(find ./rawFast5 -type f -name "*.fast5" | wc -l)
-	let half_1=${tot_fast5s}/2
-	let half_2=${tot_fast5s}-${half_1}
-
-	# Get a list for each half
-	head -${half_1} rawFast5s_list.txt > rawFast5s_half1.txt
-	tail -${half_2} rawFast5s_list.txt > rawFast5s_half2.txt
-
-	# Create folders and move the fast5s
-	mkdir -p ./rawFast5/1 ./rawFast5/2
-	xargs mv -t ./rawFast5/1 < rawFast5s_half1.txt
-	xargs mv -t ./rawFast5/2 < rawFast5s_half2.txt
-fi
-
-echo "Done"
+echo "Done with the simple Mega_dSMF pipeline installation"
+echo "Launch the scripts in numerical order with sbatch."
