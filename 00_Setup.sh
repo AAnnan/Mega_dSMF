@@ -42,7 +42,7 @@ fi
 echo "export CONDA_ACTIVATE=${CONDA_PACKAGE%conda}activate" >> ~/.bashrc
 
 #Create Conda env
-conda create --name ${condaEnv} --yes
+conda create --name ${condaEnv} python=3.8 --yes
 
 #Activate conda env
 source ~/.bashrc
