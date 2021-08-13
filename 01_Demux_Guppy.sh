@@ -32,7 +32,8 @@ if [ "$is_multi" = False ]; then
 		--save_path /scratch/TMP_Megalodon_${expName}/raw_multifast5s_${expName} \
 		--threads 32 \
 		--filename_base ${expName} \
-		--batch_size 6000
+		--batch_size 6000 \
+		--recursive 
 
 	rawFast5_DIR=/scratch/TMP_Megalodon_${expName}/raw_multifast5s_${expName}
 fi
