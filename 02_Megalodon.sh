@@ -3,9 +3,9 @@
 ## Resource Allocation
 #SBATCH --time=10-00:00:00
 #SBATCH --partition=gpu
-#SBATCH --gres=gpu:1
-#SBATCH --mem=128G
-#SBATCH –-cpus-per-task=8
+#SBATCH --gres=gpu:2
+#SBATCH --mem=256G
+#SBATCH –-cpus-per-task=16
 
 ## job metadata
 #SBATCH --job-name="Megalodon"
@@ -13,7 +13,6 @@
 #SBATCH --mail-type=end,fail
 
 ## Should be run in the same folder as varSettings.sh
-## .bashrc should include location of bin directory inside Guppy directory and export it as ${GUPPY_DIR}
 ## .bashrc should include location of conda activate script and export it as ${CONDA_ACTIVATE}
 
 source ./varSettings.sh
@@ -23,12 +22,12 @@ source ${CONDA_ACTIVATE} ${condaEnv}
 # Move to scratch temp experiment folder
 cd /scratch/TMP_Megalodon_${expName}
 
-# Compute settings: 1 GPU and 8 CPU cores per run
+# Compute settings: 1 GPU and 12 CPU cores per run
 # Other useful option : --num-reads 5000 \ (for testing)
 
-megalodon ${work_DIR}/output/final_multifast5s_${expName}/ \
+megalodon ${barcodesToMegalodon_DIR} \
         --guppy-server-path ${GUPPY_DIR}/guppy_basecall_server \
-        --guppy-params "-d ./rerio/basecall_models/ --num_callers 5 --ipc_threads 6" \
+        --guppy-params "-d ./rerio/basecall_models/" \
         --guppy-config ${modelConfig}.cfg \
         --outputs ${outputs[@]} \
         --output-directory ./megalodon_results_${expName}/ \
@@ -41,7 +40,7 @@ megalodon ${work_DIR}/output/final_multifast5s_${expName}/ \
         --sort-mappings \
         --mod-map-emulate-bisulfite \
         --mod-map-base-conv C T --mod-map-base-conv m C \
-        --devices 0 --processes 8
+        --devices 0 1 --processes 12
 
 cd ./megalodon_results_${expName}
 
