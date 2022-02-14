@@ -1,5 +1,5 @@
 # Mega_dSMF
-Analysis pipeline of cytosine methylation single-molecule footprinting (dSMF) experiments with Nanopore sequencing with [ONT's Megalodon](https://github.com/nanoporetech/megalodon).
+Analysis pipeline of cytosine methylation single-molecule footprinting (dSMF) experiments with Nanopore sequencing using [ONT's Megalodon](https://github.com/nanoporetech/megalodon).
 
 ## Installation
 1) Log on the **GPU** node (IZBDelhi). This is important to make use of the faster scratch folder. Make sure that you have Conda installed with `conda --version`
